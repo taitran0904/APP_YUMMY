@@ -1,6 +1,5 @@
-import { View, StyleSheet, Animated } from "react-native";
-import { $primary, $secondary } from "./theme";
 import React from "react";
+import { View, StyleSheet, Animated } from "react-native";
 
 interface Props {
   flex?: boolean;
@@ -31,8 +30,6 @@ interface Props {
   mb?: number;
   animated?: boolean;
   shadow?: boolean;
-  primary?: boolean;
-  secondary?: boolean;
   children?: any;
   ba?: {
     width: number;
@@ -60,6 +57,7 @@ interface Props {
     style?: string;
   };
   radius?: number;
+  bg?: string;
 }
 
 const Block: React.FC<Props> = props => {
@@ -92,14 +90,13 @@ const Block: React.FC<Props> = props => {
     mr,
     mt,
     mb,
-    primary,
-    secondary,
     ba,
     bb,
     bt,
     br,
     bl,
     radius,
+    bg,
   } = props;
 
   const blockStyles: any = [
@@ -128,8 +125,6 @@ const Block: React.FC<Props> = props => {
     mr && { marginRight: mr },
     mt && { marginTop: mt },
     mb && { marginBottom: mb },
-    primary && styles.primary,
-    secondary && styles.secondary,
     ba && {
       borderWidth: ba.width,
       borderColor: ba.color,
@@ -156,6 +151,7 @@ const Block: React.FC<Props> = props => {
       borderRightStyle: br.style,
     },
     radius && { borderRadius: radius },
+    bg && { backgroundColor: bg },
     style,
   ];
 
@@ -212,6 +208,4 @@ const styles = StyleSheet.create({
     elevation: 3,
     backgroundColor: "white",
   },
-  primary: { backgroundColor: $primary },
-  secondary: { backgroundColor: $secondary },
 });

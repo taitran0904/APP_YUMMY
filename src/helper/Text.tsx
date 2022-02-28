@@ -1,3 +1,4 @@
+import React from "react";
 import { Platform, StyleSheet, Text as TextBase } from "react-native";
 import { $gray, $primary, $secondary } from "./theme";
 

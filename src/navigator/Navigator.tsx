@@ -1,0 +1,19 @@
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import { HomeStackScreen } from "./Stacks";
+
+const BottomTab = createBottomTabNavigator();
+export default function Navigator() {
+  return (
+    <NavigationContainer>
+      <BottomTab.Navigator>
+        <BottomTab.Screen
+          options={{ headerShown: false }}
+          name="HomeStackScreen"
+          component={HomeStackScreen}
+        />
+      </BottomTab.Navigator>
+    </NavigationContainer>
+  );
+}
