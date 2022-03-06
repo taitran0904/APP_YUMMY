@@ -8,5 +8,5 @@ export const $black = "#030B1E";
 export const $white = "#FFFFFF";
 export const $gray = "#757982";
 export const $gray2 = "#999";
-export const $gray3 = "#f5f6f8";
+export const $gray3 = "#f0f0f0";
 export const $secondary = "#d3d3ef";

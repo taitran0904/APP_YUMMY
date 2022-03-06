@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleProp, StyleSheet, ViewStyle } from "react-native";
-import { Block, Text } from "../../helper";
+import { Block } from "../../helper";
 
 interface Props {
   left?: React.ReactNode;
@@ -12,17 +12,9 @@ interface Props {
   style?: StyleProp<ViewStyle>;
 }
 const Header: React.FC<Props> = props => {
-  const { left, center, right, leftStyle, centerStyle, rightStyle, style } =
-    props;
+  const { left, center, right, leftStyle, centerStyle, rightStyle, style } = props;
   return (
-    <Block
-      row
-      middle
-      bg="blue"
-      space="between"
-      px={20}
-      style={[style, { zIndex: 10, height: 50 }]}
-    >
+    <Block row middle space="between" px={20} style={[style, { zIndex: 10 }]}>
       <Block style={[styles.container, leftStyle]}>{left && left}</Block>
       <Block style={[styles.container, centerStyle]}>{center && center}</Block>
       <Block style={[styles.container, rightStyle]}>{right && right}</Block>

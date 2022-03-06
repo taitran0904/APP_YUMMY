@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Dimensions } from "react-native";
+import { StatusBar } from "react-native";
+
 // import DeviceInfo from "react-native-device-info";
 
 const useOrientation = () => {
@@ -22,6 +24,7 @@ const useOrientation = () => {
     ...screenInfo,
     windowWidth: screenInfo.width,
     windowHeight: screenInfo.height,
+    statusBarHeight: StatusBar.currentHeight,
     IPAD: screenInfo.width > WIDTH_NEED_CHANGE,
     // isTabletUI: isTablet && screenInfo.width > screenInfo.height,
   };
