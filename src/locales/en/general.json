@@ -1,6 +1,13 @@
 {
   "translation": {
     "IMAGE": "Image",
-    "STATUS": "Status"
+    "STATUS": "Status",
+    "SUN": "Sun",
+    "MON": "Mon",
+    "TUE": "Tue",
+    "WED": "Wed",
+    "THU": "Thu",
+    "FRI": "Fri",
+    "SAT": "Sat"
   }
 }

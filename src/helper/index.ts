@@ -20,6 +20,7 @@ import Text from "./Text";
 import Loading from "./Loading";
 // import Image from "./Image";
 import Input from "./Input";
+import DatePicker from "./DatePicker";
 
 export {
   AntIcon,
@@ -36,4 +37,5 @@ export {
   Loading,
   // Image,
   Input,
+  DatePicker,
 };
