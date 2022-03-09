@@ -12,6 +12,9 @@ function HomeScreen() {
   const { windowWidth } = useOrientation();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  const [date, setDate] = useState();
+
+  console.log(date);
   return (
     <Block>
       <Header
@@ -51,7 +54,7 @@ function HomeScreen() {
           </Button>
         </Block>
       </ScrollView>
-      <DatePicker open={open} setOpen={setOpen} />
+      <DatePicker open={open} setOpen={setOpen} date={date} setDate={setDate} />
     </Block>
   );
 }
