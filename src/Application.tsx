@@ -18,7 +18,10 @@ export default function Application() {
   }, [getToken]);
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Block flex>{token === "login" ? <Navigator /> : <AuthScreen />}</Block>
+      <Block flex>
+        {/* {token === "login" ? <Navigator /> : <AuthScreen />} */}
+        <Navigator />
+      </Block>
     </SafeAreaView>
   );
 }

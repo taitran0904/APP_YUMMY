@@ -8,6 +8,13 @@
     "WED": "T4",
     "THU": "T5",
     "FRI": "T6",
-    "SAT": "T7"
+    "SAT": "T7",
+    "SETTING": "Cài đặt",
+    "LANGUAGE": "Ngôn ngữ",
+    "PRIVACY": "Quyền riêng tư",
+    "HELP_SUPPORT": "Trợ giúp & Hổ trợ",
+    "INTRODUCE": "Giới thiệu",
+    "LOGOUT": "Đăng xuất",
+    "SEARCH": "Tìm kiếm..."
   }
 }

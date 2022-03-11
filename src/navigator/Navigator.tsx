@@ -1,7 +1,7 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { HomeStackScreen } from "./Stacks";
+import { HomeStackScreen, SearchStackScreen, SettingStackScreeen } from "./Stacks";
 
 const BottomTab = createBottomTabNavigator();
 export default function Navigator() {
@@ -12,6 +12,16 @@ export default function Navigator() {
           options={{ headerShown: false }}
           name="HomeStackScreen"
           component={HomeStackScreen}
+        />
+        <BottomTab.Screen
+          options={{ headerShown: false }}
+          name="SearchStackScreen"
+          component={SearchStackScreen}
+        />
+        <BottomTab.Screen
+          options={{ headerShown: false }}
+          name="SettingStackScreen"
+          component={SettingStackScreeen}
         />
       </BottomTab.Navigator>
     </NavigationContainer>
