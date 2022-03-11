@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView } from "react-native";
@@ -9,18 +10,26 @@ import DatePicker from "../../helper/DatePicker";
 import { $gray3, $primary2 } from "../../helper/theme";
 import useOrientation from "../../hooks/useOrientation";
 function HomeScreen() {
+  const navigation = useNavigation();
   const { windowWidth } = useOrientation();
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState();
 
-  console.log(date);
   return (
     <Block>
       <Header
         left={<AntIcon name="user" size={24} color="black" />}
         // center={<AntIcon name="user" size={24} color="black" />}
-        // right={<AntIcon name="user" size={24} color="black" />}
+        right={
+          <Button onPress={() => navigation.navigate("ProfileScreen")}>
+            <Text>cdcdc</Text>
+          </Button>
+        }
+        rightStyle={{
+          justifyContent: "flex-end",
+          alignItems: "center",
+        }}
         style={{
           borderBottomWidth: 1,
           borderBottomColor: $gray3,

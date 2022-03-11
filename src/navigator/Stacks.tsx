@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import AuthScreen from "../screens/auth";
 import HomeScreen from "../screens/home";
+import ProfileScreen from "../screens/profile";
 import SearchScreen from "../screens/search";
 import SettingScreen from "../screens/setting";
 
@@ -26,6 +27,7 @@ export function HomeStackScreen() {
   return (
     <HomeStack.Navigator initialRouteName="HomeScreenStack" screenOptions={screenOptions}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
+      <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
     </HomeStack.Navigator>
   );
 }
