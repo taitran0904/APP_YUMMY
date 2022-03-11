@@ -25,17 +25,7 @@ interface Props {
 
 export default class Input extends React.Component<Props> {
   render() {
-    const {
-      style,
-      multiline,
-      shadow,
-      maxLength,
-      ref,
-      prefix,
-      suffix,
-      textSize,
-      ...props
-    } = this.props;
+    const { style, multiline, shadow, maxLength, ref, prefix, suffix, textSize, ...props } = this.props;
     return (
       <View style={[shadow && styles.shadow, styles.inputContainer, style]}>
         {prefix && prefix}

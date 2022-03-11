@@ -8,6 +8,13 @@
     "WED": "Wed",
     "THU": "Thu",
     "FRI": "Fri",
-    "SAT": "Sat"
+    "SAT": "Sat",
+    "SETTING": "Setting",
+    "LANGUAGE": "Language",
+    "PRIVACY": "Privacy",
+    "HELP_SUPPORT": "Help & Support",
+    "INTRODUCE": "Introduce",
+    "LOGOUT": "Log out",
+    "SEARCH": "Search..."
   }
 }
