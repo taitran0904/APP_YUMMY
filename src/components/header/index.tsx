@@ -14,7 +14,7 @@ interface Props {
 const Header: React.FC<Props> = props => {
   const { left, center, right, leftStyle, centerStyle, rightStyle, style } = props;
   return (
-    <Block row middle space="between" px={20} style={[style, { zIndex: 10 }]}>
+    <Block row middle style={[style, { zIndex: 10 }]}>
       <Block style={[styles.container, leftStyle]}>{left && left}</Block>
       <Block style={[styles.container, centerStyle]}>{center && center}</Block>
       <Block style={[styles.container, rightStyle]}>{right && right}</Block>

@@ -1,16 +1,18 @@
+import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import Header from "../../components/header";
+import Information from "../../components/profile/information";
 import { Block, Button, MaIcon, Text } from "../../helper";
 
-export default function ProfileScreen() {
+export default function ProfileScreen({ navigation }: { navigation: any }) {
   const { t } = useTranslation();
   return (
     <Block>
       <Header
         left={
           <Block row center middle>
-            <Button style={{ marginRight: 10 }}>
+            <Button px={10} onPress={() => navigation.goBack()}>
               <MaIcon name="arrow-back" color="black" size={20} />
             </Button>
             <Block>
@@ -24,6 +26,7 @@ export default function ProfileScreen() {
         }}
         style={{ height: 50, backgroundColor: "red" }}
       />
+      <Information />
     </Block>
   );
 }

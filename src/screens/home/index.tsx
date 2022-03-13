@@ -29,6 +29,10 @@ function HomeScreen() {
         rightStyle={{
           justifyContent: "flex-end",
           alignItems: "center",
+          marginRight: 10,
+        }}
+        leftStyle={{
+          marginLeft: 10,
         }}
         style={{
           borderBottomWidth: 1,

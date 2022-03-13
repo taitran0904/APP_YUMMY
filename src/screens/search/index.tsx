@@ -1,9 +1,10 @@
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import React from "react";
 import { Block, FEIcon, Input } from "../../helper";
 import Header from "../../components/header";
 import { $gray3, $primary } from "../../helper/theme";
 import { useTranslation } from "react-i18next";
+import UserItem from "../../components/search/user-item";
 
 export default function SearchScreen() {
   const { t } = useTranslation();
@@ -21,6 +22,23 @@ export default function SearchScreen() {
         }
         style={styles.header}
       />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+        <UserItem />
+      </ScrollView>
     </Block>
   );
 }
