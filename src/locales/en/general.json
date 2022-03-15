@@ -16,6 +16,7 @@
     "INTRODUCE": "Introduce",
     "LOGOUT": "Log out",
     "SEARCH": "Search...",
-    "FOLLOWERS": "Followers"
+    "FOLLOWERS": "Followers",
+    "FOLLOW": "Follow"
   }
 }

@@ -1,12 +1,22 @@
-import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
+import ScrollableTabView from "react-native-scrollable-tab-view";
+
 import Header from "../../components/header";
-import Information from "../../components/profile/information";
 import { Block, Button, MaIcon, Text } from "../../helper";
+import { ImageTab, Information } from "../../components/profile";
 
 export default function ProfileScreen({ navigation }: { navigation: any }) {
   const { t } = useTranslation();
+
+  const _renderProfileTabs = () => {
+    return (
+      <ScrollableTabView>
+        <ImageTab />
+      </ScrollableTabView>
+    );
+  };
   return (
     <Block>
       <Header
@@ -24,7 +34,7 @@ export default function ProfileScreen({ navigation }: { navigation: any }) {
         centerStyle={{
           flex: 0,
         }}
-        style={{ height: 50, backgroundColor: "red" }}
+        style={{ height: 50 }}
       />
       <Information />
     </Block>
