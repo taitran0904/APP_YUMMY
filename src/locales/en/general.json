@@ -17,6 +17,10 @@
     "LOGOUT": "Log out",
     "SEARCH": "Search...",
     "FOLLOWERS": "Followers",
-    "FOLLOW": "Follow"
+    "FOLLOW": "Follow",
+    "IMAGES": "Images",
+    "FOLLOWING": "Following",
+    "VIETNAMESE": "Vietnamese",
+    "ENGLISH": "English"
   }
 }

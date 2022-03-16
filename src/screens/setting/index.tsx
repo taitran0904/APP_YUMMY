@@ -1,28 +1,36 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import Header from "../../components/header";
-import { Block, Button, MDIcon, Text } from "../../helper";
+import { Block, Button, MDIcon, Modal, Text } from "../../helper";
 import { $gray3, $primary } from "../../helper/theme";
 
 export default function SettingScreen() {
+  const navigation = useNavigation();
   const { t } = useTranslation();
+
+  const [modalVisible, setModalVisible] = useState(false);
   const setting = [
     {
       title: t("LANGUAGE"),
       icon: "alpha-l-box-outline",
+      onPress: () => setModalVisible(true),
     },
     {
       title: t("PRIVACY"),
       icon: "security",
+      onPress: () => console.log("hihi"),
     },
     {
       title: t("HELP_SUPPORT"),
       icon: "help-circle-outline",
+      onPress: () => console.log("hihi"),
     },
     {
       title: t("INTRODUCE"),
       icon: "information-outline",
+      onPress: () => console.log("hihi"),
     },
   ];
 
@@ -35,8 +43,6 @@ export default function SettingScreen() {
           </Text>
         }
         style={{
-          borderBottomWidth: 1,
-          borderBottomColor: $gray3,
           height: 100,
         }}
       />
@@ -47,6 +53,7 @@ export default function SettingScreen() {
             middle
             key={index}
             pl={10}
+            onPress={item.onPress}
             style={[
               styles.button,
               {
@@ -68,6 +75,42 @@ export default function SettingScreen() {
           </Text>
         </Button>
       </Block>
+      <Modal
+        visible={modalVisible}
+        onRequestClose={() => {
+          Alert.alert("Modal has been closed.");
+          setModalVisible(!modalVisible);
+        }}
+        transparent={true}
+      >
+        <Button
+          style={{ flex: 1, justifyContent: "center", alignItems: "center", marginTop: 22, zIndex: 10 }}
+          onPress={() => setModalVisible(!modalVisible)}
+        >
+          <Block
+            style={{
+              margin: 20,
+              backgroundColor: "white",
+              borderRadius: 20,
+              padding: 35,
+              alignItems: "center",
+              shadowColor: "#000",
+              shadowOffset: {
+                width: 0,
+                height: 2,
+              },
+              shadowOpacity: 0.25,
+              shadowRadius: 4,
+              elevation: 5,
+              zIndex: 1000,
+            }}
+          >
+            <Button onPress={() => setModalVisible(!modalVisible)}>
+              <Text>hihi</Text>
+            </Button>
+          </Block>
+        </Button>
+      </Modal>
     </Block>
   );
 }

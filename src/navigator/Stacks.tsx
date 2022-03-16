@@ -5,6 +5,7 @@ import HomeScreen from "../screens/home";
 import ProfileScreen from "../screens/profile";
 import SearchScreen from "../screens/search";
 import SettingScreen from "../screens/setting";
+import ChooseLangScreen from "../screens/setting/choose-lang";
 
 const screenOptions = {
   headerShown: false,
@@ -37,6 +38,7 @@ export function SettingStackScreeen() {
   return (
     <SettingStack.Navigator initialRouteName="SettingScreenStack" screenOptions={screenOptions}>
       <SettingStack.Screen name="SettingScreen" component={SettingScreen} />
+      <SettingStack.Screen name="ChooseLangScreen" component={ChooseLangScreen} />
     </SettingStack.Navigator>
   );
 }

@@ -17,6 +17,10 @@
     "LOGOUT": "Đăng xuất",
     "SEARCH": "Tìm kiếm...",
     "FOLLOWERS": "Người theo dõi",
-    "FOLLOW": "Theo dõi"
+    "FOLLOW": "Theo dõi",
+    "IMAGES": "Hình ảnh",
+    "FOLLOWING": "Đang theo dõi",
+    "VIETNAMESE": "Tiếng Việt",
+    "ENGLISH": "Tiếng Anh"
   }
 }

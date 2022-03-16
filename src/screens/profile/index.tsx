@@ -3,14 +3,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
 
 import Header from "../../components/header";
-import { Block, Button, MaIcon, Text } from "../../helper";
-import { ImageTab, Information } from "../../components/profile";
+import { Block, Button, MaIcon, MDIcon, Text } from "../../helper";
+import { Information } from "../../components/profile";
+import TabView from "../../components/profile/tab-view";
+import { ScrollView } from "react-native";
 
 export default function ProfileScreen({ navigation }: { navigation: any }) {
   const { t } = useTranslation();
 
   return (
-    <Block>
+    <>
       <Header
         left={
           <Block row center middle>
@@ -23,12 +25,22 @@ export default function ProfileScreen({ navigation }: { navigation: any }) {
             </Block>
           </Block>
         }
+        right={
+          <Block style={{ alignItems: "flex-end", width: "100%" }}>
+            <Button px={10}>
+              <MDIcon name="dots-vertical" size={24} color="black" />
+            </Button>
+          </Block>
+        }
         centerStyle={{
           flex: 0,
         }}
         style={{ height: 50 }}
       />
-      <Information />
-    </Block>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Information />
+        <TabView />
+      </ScrollView>
+    </>
   );
 }
