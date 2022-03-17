@@ -1,56 +1,50 @@
 import React from "react";
 import { StyleSheet, Modal as ModalBase } from "react-native";
+import useOrientation from "../hooks/useOrientation";
 import Block from "./Block";
 import Button from "./Button";
-import Text from "./Text";
-import { $gray, $primary, $secondary } from "./theme";
 
-// export interface Props {
+export interface Props {
+  visible?: boolean;
+  setVisible?: any;
+  width: number;
+  height: number;
+  radius?: number;
+  children?: React.ReactNode;
+  style?: any;
+}
 
-// }
-
-const Modal: React.FC = props => {
-  const { children, visible, setModalVisible } = props;
-
-  // const modalStyles: any = [
-
-  //   style,
-  // ];
+const Modal: React.FC<Props> = props => {
+  const { visible, setVisible, width, height, radius, style, children } = props;
+  const { windowWidth, windowHeight } = useOrientation();
 
   return (
-    // <TextBase {...props} style={modalStyles}>
-    //   {children}
-    // </TextBase>
-    <ModalBase
-      visible={visible}
-      transparent={true}
-      {...props}
-      style={{ width: 100, height: 100, backgroundColor: "red" }}
-    >
-      <Block>{children}</Block>
-      <Button />
+    <ModalBase visible={visible} transparent={true} {...props}>
+      <Block
+        flex
+        style={[
+          style,
+          {
+            position: "absolute",
+            backgroundColor: "white",
+            width: width,
+            height: height,
+            zIndex: 10,
+            top: (windowHeight - height) / 2,
+            left: (windowWidth - width) / 2,
+            borderRadius: radius,
+          },
+        ]}
+      >
+        {children}
+      </Block>
+      <Button
+        flex
+        style={{ backgroundColor: "rgba(0,0,0,0.2)", flex: 1 }}
+        onPress={() => setVisible(false)}
+      />
     </ModalBase>
   );
 };
 
 export default Modal;
-
-const styles: any = StyleSheet.create({
-  title: {
-    color: "black",
-    fontSize: 16,
-    fontWeight: "bold",
-  },
-  center: {
-    textAlign: "center",
-  },
-  left: {
-    textAlign: "left",
-  },
-  right: {
-    textAlign: "right",
-  },
-
-  primary: { color: $primary },
-  secondary: { color: $secondary },
-});

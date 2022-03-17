@@ -1,14 +1,16 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import Header from "../../components/header";
 import { Block, Button, MDIcon, Modal, Text } from "../../helper";
-import { $gray3, $primary } from "../../helper/theme";
+import { $gray, $gray2, $gray3, $primary } from "../../helper/theme";
 
 export default function SettingScreen() {
   const navigation = useNavigation();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const [activeLang, setActiveLang] = useState("en");
 
   const [modalVisible, setModalVisible] = useState(false);
   const setting = [
@@ -34,6 +36,18 @@ export default function SettingScreen() {
     },
   ];
 
+  const lang = [
+    {
+      id: 1,
+      title: "EN",
+      value: "en",
+    },
+    {
+      id: 2,
+      title: "VN",
+      value: "vn",
+    },
+  ];
   return (
     <Block flex>
       <Header
@@ -75,10 +89,33 @@ export default function SettingScreen() {
           </Text>
         </Button>
       </Block>
-      <Modal>
-        <Block>
-          <Text>hihi</Text>
-        </Block>
+      <Modal
+        width={200}
+        height={100}
+        radius={20}
+        visible={modalVisible}
+        setVisible={setModalVisible}
+        style={{ flexDirection: "row" }}
+      >
+        {lang.map(item => (
+          <Button
+            key={item.id}
+            flex
+            center
+            middle
+            br={activeLang === item.value ? { width: 1, color: $gray3 } : { width: 1, color: $gray3 }}
+            onPress={() => {
+              setActiveLang(item.value);
+              console.log(activeLang);
+              AsyncStorage.setItem("language", activeLang);
+              i18n.changeLanguage(activeLang);
+            }}
+          >
+            <Text size={activeLang === item.value ? 32 : 14} title color={$primary}>
+              {item.title}
+            </Text>
+          </Button>
+        ))}
       </Modal>
     </Block>
   );
