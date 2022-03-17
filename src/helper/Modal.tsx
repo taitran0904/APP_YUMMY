@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Modal as ModalBase } from "react-native";
 import Block from "./Block";
+import Button from "./Button";
 import Text from "./Text";
 import { $gray, $primary, $secondary } from "./theme";
 
@@ -9,7 +10,7 @@ import { $gray, $primary, $secondary } from "./theme";
 // }
 
 const Modal: React.FC = props => {
-  const { children } = props;
+  const { children, visible, setModalVisible } = props;
 
   // const modalStyles: any = [
 
@@ -20,8 +21,14 @@ const Modal: React.FC = props => {
     // <TextBase {...props} style={modalStyles}>
     //   {children}
     // </TextBase>
-    <ModalBase {...props} style={{ width: 100, height: 100, backgroundColor: "red" }}>
-      {children}
+    <ModalBase
+      visible={visible}
+      transparent={true}
+      {...props}
+      style={{ width: 100, height: 100, backgroundColor: "red" }}
+    >
+      <Block>{children}</Block>
+      <Button />
     </ModalBase>
   );
 };

@@ -75,41 +75,10 @@ export default function SettingScreen() {
           </Text>
         </Button>
       </Block>
-      <Modal
-        visible={modalVisible}
-        onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-        transparent={true}
-      >
-        <Button
-          style={{ flex: 1, justifyContent: "center", alignItems: "center", marginTop: 22, zIndex: 10 }}
-          onPress={() => setModalVisible(!modalVisible)}
-        >
-          <Block
-            style={{
-              margin: 20,
-              backgroundColor: "white",
-              borderRadius: 20,
-              padding: 35,
-              alignItems: "center",
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 0,
-                height: 2,
-              },
-              shadowOpacity: 0.25,
-              shadowRadius: 4,
-              elevation: 5,
-              zIndex: 1000,
-            }}
-          >
-            <Button onPress={() => setModalVisible(!modalVisible)}>
-              <Text>hihi</Text>
-            </Button>
-          </Block>
-        </Button>
+      <Modal>
+        <Block>
+          <Text>hihi</Text>
+        </Block>
       </Modal>
     </Block>
   );
