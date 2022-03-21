@@ -23,6 +23,7 @@ export default function Application() {
   const getLanguage = async () => {
     try {
       const lang = await AsyncStorage.getItem("language");
+      console.log("lang", lang);
       if (lang) i18n.changeLanguage(lang);
     } catch (error) {
       //

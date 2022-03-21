@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import React from "react";
 import { Block, Text } from "../../../helper";
 import { $primary, $primary2 } from "../../../helper/theme";
+import Interactive from "../../interactive";
 
 export const PostItem: React.FC = () => {
   const _renderInfor = () => {
@@ -35,7 +36,7 @@ export const PostItem: React.FC = () => {
         (xà lách/ rau chuối/ rau húng lủi) - Nước mắm 2 muỗng canh - Đường phèn 1 muỗng canh - Hạt nêm 1/2
         muỗng canh - Muối 1 ít
       </Text>
-      <Block style={{ width: "100%", height: 320, backgroundColor: "blue" }} />
+      <Interactive />
     </Block>
   );
 };

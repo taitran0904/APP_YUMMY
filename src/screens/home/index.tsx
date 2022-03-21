@@ -58,9 +58,10 @@ function HomeScreen() {
           </Button>
         </Block>
         <Stories />
-        {/* <Block>
+        <Block>
           <PostItem />
-        </Block> */}
+          <PostItem />
+        </Block>
         {/* <Block center middle>
           <Button pa={20} onPress={() => setOpen(true)} style={{ backgroundColor: "blue" }}>
             <Text>Calender</Text>
@@ -68,7 +69,9 @@ function HomeScreen() {
         </Block> */}
       </ScrollView>
       {/* <DatePicker open={open} setOpen={setOpen} date={date} setDate={setDate} /> */}
+      {/* <PostItem />
       <PostItem />
+      <PostItem /> */}
     </Block>
   );
 }

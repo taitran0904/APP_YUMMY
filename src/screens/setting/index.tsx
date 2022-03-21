@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet } from "react-native";
 import Header from "../../components/header";
@@ -36,23 +36,27 @@ export default function SettingScreen() {
     },
   ];
 
-  const lang = [
+  const languages = [
     {
-      id: 1,
-      title: "EN",
-      value: "en",
+      key: "en",
+      lang: "EN",
     },
     {
-      id: 2,
-      title: "VN",
-      value: "vn",
+      key: "vn",
+      lang: "VN",
     },
   ];
+
+  useEffect(() => {
+    i18n.changeLanguage(activeLang);
+    AsyncStorage.setItem("language", activeLang);
+  }, [activeLang]);
+
   return (
     <Block flex>
       <Header
         left={
-          <Text title size={24}>
+          <Text title size={24} px={15}>
             {t("SETTING")}
           </Text>
         }
@@ -97,22 +101,17 @@ export default function SettingScreen() {
         setVisible={setModalVisible}
         style={{ flexDirection: "row" }}
       >
-        {lang.map(item => (
+        {languages.map(item => (
           <Button
-            key={item.id}
+            key={item.key}
             flex
             center
             middle
-            br={activeLang === item.value ? { width: 1, color: $gray3 } : { width: 1, color: $gray3 }}
-            onPress={() => {
-              setActiveLang(item.value);
-              console.log(activeLang);
-              AsyncStorage.setItem("language", activeLang);
-              i18n.changeLanguage(activeLang);
-            }}
+            br={activeLang === item.key ? { width: 1, color: $gray3 } : { width: 1, color: $gray3 }}
+            onPress={() => setActiveLang(item.key)}
           >
-            <Text size={activeLang === item.value ? 32 : 14} title color={$primary}>
-              {item.title}
+            <Text size={activeLang === item.key ? 32 : 14} title color={$primary}>
+              {item.lang}
             </Text>
           </Button>
         ))}
