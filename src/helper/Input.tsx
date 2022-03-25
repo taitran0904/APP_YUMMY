@@ -15,7 +15,7 @@ interface Props {
   autoFocus?: boolean;
   maxLength?: number;
   textSize?: number;
-  // onChangeText: (e: string) => void;
+  onChangeText: (e: string) => void;
   // onBlur?: (e?: any) => void;
   // onFocus?: (e?: any) => void;
   // onSubmitEditing?: () => void;

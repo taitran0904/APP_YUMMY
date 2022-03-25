@@ -1,11 +1,19 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import enGeneral from "./en/general.json";
+import enError from "./en/error.json";
 import vnGeneral from "./vn/general.json";
+import vnError from "./vn/error.json";
 
 const resources = {
-  en: enGeneral,
-  vn: vnGeneral,
+  en: {
+    translation: enGeneral,
+    enError,
+  },
+  vn: {
+    translation: vnGeneral,
+    vnError,
+  },
 };
 
 i18n.use(initReactI18next).init({

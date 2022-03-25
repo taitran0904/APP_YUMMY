@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { UserState } from "../../types/user";
+import { LoginProps, UserState } from "../../types/user";
 
 const initialState: UserState = {
   token: null,
+  userInfo: {},
   actionLoading: false,
 };
 
@@ -13,8 +14,28 @@ const UserSlice = createSlice({
     saveToken(state, action: PayloadAction<string>) {
       state.token = action.payload;
     },
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    login(state, action: PayloadAction<LoginProps>) {
+      state.actionLoading = true;
+    },
+
+    loginSuccess(state, action: PayloadAction<any>) {
+      state.actionLoading = false;
+      state.token = action.payload.access_token;
+    },
+
+    logout() {},
+
+    logoutSuccess(state) {
+      state.token = null;
+    },
+
+    hideActionLoading(state) {
+      state.actionLoading = false;
+    },
   },
 });
 
-export const { saveToken } = UserSlice.actions;
+export const { saveToken, login, loginSuccess, hideActionLoading, logout, logoutSuccess } = UserSlice.actions;
 export default UserSlice.reducer;

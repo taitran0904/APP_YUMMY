@@ -6,8 +6,11 @@ import { StyleSheet } from "react-native";
 import Header from "../../components/header";
 import { Block, Button, MDIcon, Modal, Text } from "../../helper";
 import { $gray, $gray2, $gray3, $primary } from "../../helper/theme";
+import { useAppDispatch } from "../../hooks";
+import { logout, logoutSuccess } from "../../redux/slice/UserSlice";
 
 export default function SettingScreen() {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
   const { t, i18n } = useTranslation();
   const [activeLang, setActiveLang] = useState("en");
@@ -87,7 +90,12 @@ export default function SettingScreen() {
         ))}
       </Block>
       <Block style={{ position: "absolute", width: "100%", bottom: 0 }}>
-        <Button center middle style={[styles.button, { backgroundColor: $primary }]}>
+        <Button
+          center
+          middle
+          style={[styles.button, { backgroundColor: $primary }]}
+          onPress={() => dispatch(logout())}
+        >
           <Text title color="white">
             {t("LOGOUT")}
           </Text>

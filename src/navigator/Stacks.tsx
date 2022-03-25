@@ -1,7 +1,10 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
-import AuthScreen from "../screens/auth";
+import CommentScreen from "../components/home/post-item/comment-screen";
+import PostDetailScreen from "../components/post/post-item-detail";
+import AuthScreen, { LoginScreen, RegisterScreen } from "../screens/auth";
 import HomeScreen from "../screens/home";
+import CreatePostScreen from "../screens/post";
 import ProfileScreen from "../screens/profile";
 import SearchScreen from "../screens/search";
 import SettingScreen from "../screens/setting";
@@ -18,7 +21,8 @@ const AuthStack = createNativeStackNavigator();
 export function AuthScreenStack() {
   return (
     <AuthStack.Navigator initialRouteName="AuthStackScreen" screenOptions={screenOptions}>
-      <AuthStack.Screen name="AuthScreen" component={AuthScreen} />
+      <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
+      <AuthStack.Screen name="RegisterScreen" component={RegisterScreen} />
     </AuthStack.Navigator>
   );
 }
@@ -29,6 +33,9 @@ export function HomeStackScreen() {
     <HomeStack.Navigator initialRouteName="HomeScreenStack" screenOptions={screenOptions}>
       <HomeStack.Screen name="HomeScreen" component={HomeScreen} />
       <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <HomeStack.Screen name="CommentScreen" component={CommentScreen} />
+      <HomeStack.Screen name="CreatePostScreen" component={CreatePostScreen} />
+      <HomeStack.Screen name="PostDetailScreen" component={PostDetailScreen} />
     </HomeStack.Navigator>
   );
 }

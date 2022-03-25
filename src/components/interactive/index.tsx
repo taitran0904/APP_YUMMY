@@ -1,25 +1,14 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useCallback, useRef } from "react";
-import { AntIcon, Block, Button, Text, BottomSheet } from "../../helper";
-
-type BottomSheetRefProps = {
-  scrollTo: (destination: number) => void;
-  isActive: () => boolean;
-};
+import { AntIcon, Block, Button } from "../../helper";
 
 const Interactive: React.FC = () => {
-  const ref = useRef<BottomSheetRefProps>(null);
+  const navigation = useNavigation();
   const interactive = [
     {
       id: 1,
       icon: "message1",
-      onPress: useCallback(() => {
-        const isActive = ref?.current?.isActive();
-        if (isActive) {
-          ref?.current?.scrollTo(0);
-        } else {
-          ref?.current?.scrollTo(-255);
-        }
-      }, []),
+      onPress: () => navigation.navigate("CommentScreen"),
     },
     {
       id: 2,
@@ -38,11 +27,6 @@ const Interactive: React.FC = () => {
           </Button>
         ))}
       </Block>
-      <BottomSheet ref={ref}>
-        <Block>
-          <Text>hihi</Text>
-        </Block>
-      </BottomSheet>
     </>
   );
 };

@@ -1,20 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Navigator from "./navigator/Navigator";
-import AuthScreen from "./screens/auth";
-import { SafeAreaView } from "react-native";
-import { Block } from "./helper";
 import { useTranslation } from "react-i18next";
+
+import { Block } from "./helper";
+import { useAppDispatch, useSelector } from "./hooks";
+import LoginScreen from "./screens/auth/login";
+import { saveToken } from "./redux/slice/UserSlice";
 
 export default function Application() {
   const { i18n } = useTranslation();
-  const [token, setToken] = useState<string>("");
+  const dispatch = useAppDispatch();
+  const token = useSelector(state => state.user.token);
 
   const getToken = async () => {
     try {
       const tokenFromStorage = await AsyncStorage.getItem("token");
-      console.log("tokenn", tokenFromStorage);
-      if (tokenFromStorage) setToken(tokenFromStorage);
+      if (tokenFromStorage) dispatch(saveToken(tokenFromStorage));
     } catch (error) {
       //
     }
@@ -37,12 +40,10 @@ export default function Application() {
   useEffect(() => {
     getToken();
   }, [getToken]);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Block flex>
-        {/* {token === "login" ? <Navigator /> : <AuthScreen />} */}
-        <Navigator />
-      </Block>
+      <Block flex>{token ? <Navigator /> : <Navigator auth />}</Block>
     </SafeAreaView>
   );
 }

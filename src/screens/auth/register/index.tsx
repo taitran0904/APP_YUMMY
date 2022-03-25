@@ -1,15 +1,15 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { Image } from "react-native";
 import { AntIcon, Block, Button, Input, Text } from "../../../helper";
-import {
-  $black,
-  $gray,
-  $gray2,
-  $primary2,
-  $white,
-} from "../../../helper/theme";
-const Registration: React.FC<AuthTab> = ({ setAuth }) => {
+import { $black, $gray, $gray2, $primary2, $white } from "../../../helper/theme";
+
+export default function RegisterScreen() {
+  const { t } = useTranslation();
+  const navigation = useNavigation();
   return (
-    <Block pt={20} style={{ flex: 2, backgroundColor: "#fafafa" }}>
+    <Block pt={20} flex center middle style={{ backgroundColor: "#fafafa" }}>
       <Input
         textSize={16}
         placeholder="Email"
@@ -72,8 +72,8 @@ const Registration: React.FC<AuthTab> = ({ setAuth }) => {
       <Button
         center
         middle
-        mx={25}
         mt={20}
+        px={20}
         style={{ height: 60, borderRadius: 15, backgroundColor: $primary2 }}
       >
         <Text weight="bold" size={18} color={$black}>
@@ -84,28 +84,12 @@ const Registration: React.FC<AuthTab> = ({ setAuth }) => {
         <Text color={$gray} size={16}>
           Already have an account?{" "}
         </Text>
-        <Button center middle onPress={() => setAuth("login")}>
+        <Button center middle onPress={() => navigation.goBack()}>
           <Text size={16} color="blue">
-            Login
+            {t("LOGIN")}
           </Text>
         </Button>
       </Block>
-      <Block mx={20} mt={20} style={{ height: 1, backgroundColor: $gray2 }} />
-      {/* <Button
-        row
-        center
-        middle
-        mx={25}
-        mt={20}
-        style={{ height: 60, borderRadius: 15, backgroundColor: $white }}
-      >
-        <AntIcon name="google" color={$black} size={20} />
-        <Text weight="bold" ml={5} size={18} color={$black}>
-          with Google
-        </Text>
-      </Button> */}
     </Block>
   );
-};
-
-export default Registration;
+}

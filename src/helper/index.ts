@@ -22,7 +22,7 @@ import Loading from "./Loading";
 import Input from "./Input";
 import DatePicker from "./DatePicker";
 import Modal from "./Modal";
-import BottomSheet from "./BottomSheet";
+// import BottomSheet from "./BottomSheet";
 
 export {
   AntIcon,
@@ -41,5 +41,5 @@ export {
   Input,
   DatePicker,
   Modal,
-  BottomSheet,
+  // BottomSheet,
 };

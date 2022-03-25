@@ -7,7 +7,8 @@ import { PostItem } from "../../components/home/post-item";
 import { Stories } from "../../components/home/stories";
 import { AntIcon, Block, Button, IoIcon, Text } from "../../helper";
 import DatePicker from "../../helper/DatePicker";
-import { $gray3, $primary2 } from "../../helper/theme";
+import Image from "../../helper/Image";
+import { $gray3, $primary, $primary2 } from "../../helper/theme";
 import useOrientation from "../../hooks/useOrientation";
 function HomeScreen() {
   const navigation = useNavigation();
@@ -19,13 +20,30 @@ function HomeScreen() {
   return (
     <Block>
       <Header
-        left={<AntIcon name="user" size={24} color="black" />}
+        left={
+          <Image
+            pure
+            source={require("../../assets/images/Yummy_app.png")}
+            style={{ width: 94, height: 42 }}
+          />
+        }
         // center={<AntIcon name="user" size={24} color="black" />}
         right={
           <Button onPress={() => navigation.navigate("ProfileScreen")}>
-            <Text>cdcdc</Text>
+            <Image
+              pure
+              source={require("../../assets/images/Rose.jpg")}
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 25,
+                borderWidth: 2,
+                borderColor: $primary,
+              }}
+            />
           </Button>
         }
+        centerStyle={{ flex: 0 }}
         rightStyle={{
           justifyContent: "flex-end",
           alignItems: "center",
@@ -52,7 +70,14 @@ function HomeScreen() {
             <IoIcon name="image" size={20} color={$primary2} />
             <Text>{t("IMAGE")}</Text>
           </Button>
-          <Button row center middle py={10} style={{ width: windowWidth / 2 }}>
+          <Button
+            row
+            center
+            middle
+            py={10}
+            style={{ width: windowWidth / 2 }}
+            onPress={() => navigation.navigate("CreatePostScreen")}
+          >
             <IoIcon name="document-text" size={20} color={$primary2} />
             <Text>{t("STATUS")}</Text>
           </Button>
