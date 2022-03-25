@@ -20,6 +20,7 @@ export default function SearchScreen() {
             style={styles.input}
           />
         }
+        centerStyle={{ marginHorizontal: 10 }}
         style={styles.header}
       />
       <ScrollView showsVerticalScrollIndicator={false}>

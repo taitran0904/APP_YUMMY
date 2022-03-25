@@ -1,27 +1,49 @@
 import React, { useEffect, useState } from "react";
+import { SafeAreaView } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Navigator from "./navigator/Navigator";
-import AuthScreen from "./screens/auth";
-import { SafeAreaView } from "react-native";
+import { useTranslation } from "react-i18next";
+
 import { Block } from "./helper";
+import { useAppDispatch, useSelector } from "./hooks";
+import LoginScreen from "./screens/auth/login";
+import { saveToken } from "./redux/slice/UserSlice";
 
 export default function Application() {
-  const [token, setToken] = useState<string>("");
+  const { i18n } = useTranslation();
+  const dispatch = useAppDispatch();
+  const token = useSelector(state => state.user.token);
+
   const getToken = async () => {
-    const tokenFromStorage = await AsyncStorage.getItem("token");
-    console.log("tokenn", tokenFromStorage);
-    if (tokenFromStorage) setToken(tokenFromStorage);
+    try {
+      const tokenFromStorage = await AsyncStorage.getItem("token");
+      if (tokenFromStorage) dispatch(saveToken(tokenFromStorage));
+    } catch (error) {
+      //
+    }
   };
+
+  const getLanguage = async () => {
+    try {
+      const lang = await AsyncStorage.getItem("language");
+      console.log("lang", lang);
+      if (lang) i18n.changeLanguage(lang);
+    } catch (error) {
+      //
+    }
+  };
+
+  useEffect(() => {
+    getLanguage();
+  }, []);
 
   useEffect(() => {
     getToken();
   }, [getToken]);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <Block flex>
-        {/* {token === "login" ? <Navigator /> : <AuthScreen />} */}
-        <Navigator />
-      </Block>
+      <Block flex>{token ? <Navigator /> : <Navigator auth />}</Block>
     </SafeAreaView>
   );
 }

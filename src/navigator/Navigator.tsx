@@ -1,10 +1,21 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { HomeStackScreen, SearchStackScreen, SettingStackScreeen } from "./Stacks";
+import { AuthScreenStack, HomeStackScreen, SearchStackScreen, SettingStackScreeen } from "./Stacks";
+
+type Props = {
+  auth?: boolean;
+};
 
 const BottomTab = createBottomTabNavigator();
-export default function Navigator() {
+
+export default function Navigator({ auth }: Props) {
+  if (auth)
+    return (
+      <NavigationContainer>
+        <AuthScreenStack />
+      </NavigationContainer>
+    );
   return (
     <NavigationContainer>
       <BottomTab.Navigator>

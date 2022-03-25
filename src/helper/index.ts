@@ -21,6 +21,8 @@ import Loading from "./Loading";
 // import Image from "./Image";
 import Input from "./Input";
 import DatePicker from "./DatePicker";
+import Modal from "./Modal";
+// import BottomSheet from "./BottomSheet";
 
 export {
   AntIcon,
@@ -38,4 +40,6 @@ export {
   // Image,
   Input,
   DatePicker,
+  Modal,
+  // BottomSheet,
 };
