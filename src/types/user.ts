@@ -2,7 +2,7 @@ import { FetchLoadingState } from "./general";
 
 export interface UserState extends FetchLoadingState {
   readonly token: string | null;
-  readonly userInfo: any;
+  readonly userInfo: {};
   readonly actionLoading: boolean;
 }
 
