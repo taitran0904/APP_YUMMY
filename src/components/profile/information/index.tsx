@@ -3,7 +3,12 @@ import { useTranslation } from "react-i18next";
 import { AntIcon, Block, Button, MaIcon, Text } from "../../../helper";
 import Image from "../../../helper/Image";
 import { $primary } from "../../../helper/theme";
-const Information: React.FC = () => {
+
+type Props = {
+  userInfo: {};
+};
+const Information: React.FC<Props> = props => {
+  const { userInfo } = props;
   const { t } = useTranslation();
   return (
     <Block>
@@ -24,8 +29,8 @@ const Information: React.FC = () => {
             }}
           />
         </Button>
-        <Text size={20} title center ml={20} style={{ width: 100 }}>
-          Tài trần
+        <Text size={20} title ml={20} style={{ width: 300 }}>
+          {userInfo?.name}
         </Text>
         <Block ml={15}>
           <Text my={5} color="black">
@@ -33,15 +38,15 @@ const Information: React.FC = () => {
           </Text>
           <Block row mb={5}>
             <AntIcon name="enviromento" size={20} color="black" />
-            <Text color="black">Dia chi</Text>
+            <Text color="black">{userInfo?.from}</Text>
           </Block>
           <Block row mb={5}>
             <AntIcon name="gift" size={20} color="black" />
-            <Text color="black">22/2/2222</Text>
+            <Text color="black">{userInfo?.date_of_birth}</Text>
           </Block>
           <Block row mb={5}>
             <MaIcon name="work-outline" size={20} color="black" />
-            <Text color="black">Đầu bếp</Text>
+            <Text color="black">{userInfo?.occupation}</Text>
           </Block>
         </Block>
         <Button

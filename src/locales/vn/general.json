@@ -26,6 +26,7 @@
   "CREATE_POST": "Tạo bài viết",
   "POST": "Đăng",
   "LOGIN": "Đăng nhập",
-  "REGISTER": "Đăng ký"
-  // }
+  "REGISTER": "Đăng ký",
+  "CHANGE_PASSWORD": "Đổi mật khẩu",
+  "CHANGE_PROFILE": "Chỉnh sửa trang cá nhân"
 }
