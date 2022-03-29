@@ -6,6 +6,7 @@ import AuthScreen, { LoginScreen, RegisterScreen } from "../screens/auth";
 import HomeScreen from "../screens/home";
 import CreatePostScreen from "../screens/post";
 import ProfileScreen from "../screens/profile";
+import EditProfileScreen from "../screens/profile/edit-profile";
 import SearchScreen from "../screens/search";
 import SettingScreen from "../screens/setting";
 import ChooseLangScreen from "../screens/setting/choose-lang";
@@ -36,6 +37,7 @@ export function HomeStackScreen() {
       <HomeStack.Screen name="CommentScreen" component={CommentScreen} />
       <HomeStack.Screen name="CreatePostScreen" component={CreatePostScreen} />
       <HomeStack.Screen name="PostDetailScreen" component={PostDetailScreen} />
+      <HomeStack.Screen name="EditProfileScreen" component={EditProfileScreen} />
     </HomeStack.Navigator>
   );
 }

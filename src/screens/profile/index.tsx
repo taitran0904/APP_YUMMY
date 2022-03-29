@@ -8,9 +8,11 @@ import TabView from "../../components/profile/tab-view";
 import { ScrollView } from "react-native";
 import { useSelector } from "../../hooks";
 import { $gray2 } from "../../helper/theme";
+import { useNavigation } from "@react-navigation/native";
 
-export default function ProfileScreen({ navigation }: { navigation: any }) {
+export default function ProfileScreen() {
   const { t } = useTranslation();
+  const navigation = useNavigation();
 
   const userInfo: any = useSelector(state => state.user.userInfo);
 
@@ -26,9 +28,11 @@ export default function ProfileScreen({ navigation }: { navigation: any }) {
             </Button>
             <Block>
               <Text color="black">John</Text>
-              <Text>
-                {userInfo?.friends.length} {t("FOLLOWERS")}
-              </Text>
+              {userInfo?.friends.length > 0 && (
+                <Text>
+                  {userInfo?.friends.length} {t("FOLLOWERS")}
+                </Text>
+              )}
             </Block>
           </Block>
         }
@@ -52,7 +56,7 @@ export default function ProfileScreen({ navigation }: { navigation: any }) {
         <Block
           style={{
             width: 140,
-            height: 100,
+            height: 50,
             marginTop: 40,
             marginRight: 20,
             borderRadius: 10,
@@ -71,12 +75,17 @@ export default function ProfileScreen({ navigation }: { navigation: any }) {
             elevation: 3,
           }}
         >
-          <Button center middle style={{ height: 50, borderBottomWidth: 1, borderBottomColor: $gray2 }}>
+          <Button
+            center
+            middle
+            style={{ height: 50 }}
+            onPress={() => navigation.navigate("EditProfileScreen", { userInfo })}
+          >
             <Text color="black">{t("CHANGE_PROFILE")}</Text>
           </Button>
-          <Button center middle style={{ height: 50 }}>
+          {/* <Button center middle style={{ height: 50 }}>
             <Text color="black">{t("CHANGE_PASSWORD")}</Text>
-          </Button>
+          </Button> */}
         </Block>
       ) : null}
     </>

@@ -21,7 +21,7 @@ const Image: React.FC<Props> = props => {
 
   return (
     <Block row center middle style={style}>
-      {checkEmpty && checkEmpty !== "" ? (
+      {(checkEmpty && checkEmpty !== "") || (checkEmpty && checkEmpty !== "no-photo") ? (
         <>
           <ImageBase
             style={[{ backgroundColor: "#f4f4f4" }, style]}
