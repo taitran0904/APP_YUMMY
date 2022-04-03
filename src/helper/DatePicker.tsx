@@ -7,7 +7,7 @@ import useOrientation from "../hooks/useOrientation";
 import { AntIcon } from ".";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
-import { $gray2 } from "./theme";
+import { $gray, $gray2, $gray3 } from "./theme";
 
 type Props = {
   open: boolean;
@@ -79,7 +79,7 @@ const DatePicker: React.FC<Props> = ({ open, setOpen, date, setDate }) => {
         center
         onPress={() => {
           if (checkFuture(item)) return;
-          setDate(dayjs(item).format("YYYY-MM-DD"));
+          setDate(dayjs(item).format("DD-MM-YYYY"));
           setOpen(false);
         }}
         style={{ flex: 1, height: 350 / 7, paddingHorizontal: 2 }}
@@ -94,7 +94,7 @@ const DatePicker: React.FC<Props> = ({ open, setOpen, date, setDate }) => {
   const _renderWeekDay = () => {
     const week = [t("SUN"), t("MON"), t("TUE"), t("WED"), t("THU"), t("FRI"), t("SAT")];
     return week.map(item => (
-      <Block flex row middle center key={item} style={{ backgroundColor: "red" }}>
+      <Block flex row middle center key={item} style={{ backgroundColor: $gray3 }}>
         <Text>{item}</Text>
       </Block>
     ));
@@ -143,11 +143,21 @@ const DatePicker: React.FC<Props> = ({ open, setOpen, date, setDate }) => {
           space="between"
           style={{ borderBottomWidth: 1, borderBottomColor: "#e1e1e1", height: 60 }}
         >
-          <Button center middle style={{ width: 50, height: 50 }}>
+          <Button
+            center
+            middle
+            style={{ width: 50, height: 50 }}
+            onPress={() => setCurrentDate(dayjs(currentDate).subtract(1, "month"))}
+          >
             <AntIcon name="left" size={20} color="black" />
           </Button>
-          <Text title>asdadad</Text>
-          <Button center middle style={{ width: 50, height: 50 }}>
+          <Text title>{dayjs(currentDate).format("DD-MM-YYYY")}</Text>
+          <Button
+            center
+            middle
+            style={{ width: 50, height: 50 }}
+            onPress={() => setCurrentDate(dayjs(currentDate).add(1, "month"))}
+          >
             <AntIcon name="right" size={20} color="black" />
           </Button>
         </Block>

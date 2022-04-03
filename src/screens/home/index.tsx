@@ -5,7 +5,7 @@ import { ScrollView } from "react-native";
 import Header from "../../components/header";
 import { PostItem } from "../../components/home/post-item";
 import { Stories } from "../../components/home/stories";
-import { API_ENDPOINT } from "../../constant";
+import { API_ENDPOINT, IMAGE_BASE_URL } from "../../constant";
 import { AntIcon, Block, Button, IoIcon, Text } from "../../helper";
 import DatePicker from "../../helper/DatePicker";
 import Image from "../../helper/Image";
@@ -21,12 +21,9 @@ function HomeScreen() {
   const { t } = useTranslation();
 
   const token = useSelector(state => state.user.token);
-  const userInfo = useSelector(state => state.user.userInfo);
-
-  console.log("userInfo", userInfo);
+  const userInfo = useSelector((state: any) => state.user.userInfo);
 
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState();
 
   return (
     <Block>
@@ -47,8 +44,10 @@ function HomeScreen() {
             }}
           >
             <Image
-              pure
-              source={require("../../assets/images/Rose.jpg")}
+              checkEmpty={userInfo?.avatar}
+              source={{
+                uri: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}`,
+              }}
               style={{
                 width: 50,
                 height: 50,

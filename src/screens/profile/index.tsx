@@ -5,7 +5,7 @@ import Header from "../../components/header";
 import { Block, Button, MaIcon, MDIcon, Text } from "../../helper";
 import { Information } from "../../components/profile";
 import TabView from "../../components/profile/tab-view";
-import { ScrollView } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { useSelector } from "../../hooks";
 import { $gray2 } from "../../helper/theme";
 import { useNavigation } from "@react-navigation/native";
@@ -28,7 +28,7 @@ export default function ProfileScreen() {
             </Button>
             <Block>
               <Text color="black">John</Text>
-              {userInfo?.friends.length > 0 && (
+              {userInfo?.friends?.length > 0 && (
                 <Text>
                   {userInfo?.friends.length} {t("FOLLOWERS")}
                 </Text>
@@ -53,33 +53,15 @@ export default function ProfileScreen() {
         <TabView />
       </ScrollView>
       {openPopup ? (
-        <Block
-          style={{
-            width: 140,
-            height: 50,
-            marginTop: 40,
-            marginRight: 20,
-            borderRadius: 10,
-            backgroundColor: "white",
-            position: "absolute",
-            top: 0,
-            right: 0,
-            zIndex: 10,
-            shadowColor: "rgba(0, 0, 0, .4)",
-            shadowOffset: {
-              width: 0,
-              height: 0,
-            },
-            shadowOpacity: 0.3,
-            shadowRadius: 3.41,
-            elevation: 3,
-          }}
-        >
+        <Block style={styles.popup}>
           <Button
             center
             middle
             style={{ height: 50 }}
-            onPress={() => navigation.navigate("EditProfileScreen", { userInfo })}
+            onPress={() => {
+              setOpenPopup(!openPopup);
+              navigation.navigate("EditProfileScreen", { userInfo });
+            }}
           >
             <Text color="black">{t("CHANGE_PROFILE")}</Text>
           </Button>
@@ -91,3 +73,26 @@ export default function ProfileScreen() {
     </>
   );
 }
+
+const styles = StyleSheet.create({
+  popup: {
+    width: 140,
+    height: 50,
+    marginTop: 40,
+    marginRight: 20,
+    borderRadius: 10,
+    backgroundColor: "white",
+    position: "absolute",
+    top: 0,
+    right: 0,
+    zIndex: 10,
+    shadowColor: "rgba(0, 0, 0, .4)",
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 3.41,
+    elevation: 3,
+  },
+});

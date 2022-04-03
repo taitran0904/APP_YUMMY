@@ -28,5 +28,9 @@
   "LOGIN": "Login",
   "REGISTER": "Register",
   "CHANGE_PASSWORD": "Change password",
-  "CHANGE_PROFILE": "Change profile"
+  "CHANGE_PROFILE": "Change profile",
+  "SAVE": "Save",
+  "SEE_PICTURE": "See picture",
+  "UPDATE_PHOTO": "Update photo",
+  "CANCEL": "Cancel"
 }

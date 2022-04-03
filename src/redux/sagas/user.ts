@@ -3,7 +3,7 @@ import { call, put, takeLatest, takeEvery, select } from "redux-saga/effects";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
 import { LoginProps } from "../../types/user";
-import { fetchUserInfo, loginAPI } from "../apis/user";
+import { fetchUserInfoAPI, loginAPI, updateUserInfoAPI } from "../apis/user";
 import { RootState } from "../configureStore";
 import {
   getUserInfo,
@@ -13,6 +13,8 @@ import {
   loginSuccess,
   logout,
   logoutSuccess,
+  updateUserInfo,
+  updateUserInfoSuccess,
 } from "../slice/UserSlice";
 import { errorToast, toast } from "../../helper/ToastHelper";
 import { Alert } from "react-native";
@@ -45,11 +47,27 @@ function* logoutSaga() {
 
 function* getUserInfoSaga() {
   const token: string = yield select((state: RootState) => state.user.token);
+  // yield put(getUserInfo());
   try {
-    const res: AxiosResponse = yield call(fetchUserInfo, token);
+    const res: AxiosResponse = yield call(fetchUserInfoAPI, token);
     const { data } = res;
     if (data.success) {
       yield put(getUserInfoSuccess(data));
+    }
+  } catch (error) {
+    //
+  } finally {
+    yield put(hideActionLoading());
+  }
+}
+
+function* updateUserInfoSaga(action: PayloadAction<any>) {
+  const token: string = yield select((state: RootState) => state.user.token);
+  try {
+    const res: AxiosResponse = yield call(updateUserInfoAPI, token, action.payload, false);
+    const { data } = res;
+    if (data.success) {
+      yield put(updateUserInfoSuccess(data));
     }
   } catch (error) {
     //
@@ -62,4 +80,5 @@ export default function* userWatcher() {
   yield takeLatest(login.type, loginFlowSaga);
   yield takeLatest(logout.type, logoutSaga);
   yield takeEvery(getUserInfo.type, getUserInfoSaga);
+  yield takeLatest(updateUserInfo.type, updateUserInfoSaga);
 }

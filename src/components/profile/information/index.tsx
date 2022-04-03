@@ -1,28 +1,38 @@
-import React, { useState } from "react";
+import dayjs from "dayjs";
+import React, { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
+import { Modalize } from "react-native-modalize";
 import { IMAGE_BASE_URL } from "../../../constant";
 import { AntIcon, Block, Button, MaIcon, Text } from "../../../helper";
 import Image from "../../../helper/Image";
 import { $primary } from "../../../helper/theme";
+import useOrientation from "../../../hooks/useOrientation";
+import BottomSheet from "../bottom-sheet";
 
 type Props = {
   userInfo: {
     avatar?: string;
     name?: string;
     from?: string;
-    date_of_birth?: string;
+    birthday?: string;
     occupation?: string;
+    description?: string;
   };
 };
 const Information: React.FC<Props> = props => {
   const { userInfo } = props;
   const { t } = useTranslation();
+  const modalizeRef = useRef(null);
+  const { windowHeight } = useOrientation();
 
   const [viewImage, setViewImage] = useState<any>(null);
   const [viewImageModal, setViewImageModal] = useState(false);
   const [showType, setShowType] = useState<any>(null);
+  const [visible, setVisible] = useState<boolean>(false);
+
+  console.log("viewImageModal", viewImageModal);
 
   const checkTypeShow = (type: any) => {
     if (type === "avatar" || type === "banner") {
@@ -42,6 +52,29 @@ const Information: React.FC<Props> = props => {
     <>
       <Block>
         <Image pure source={require("../../../assets/images/bg.jpg")} style={{ height: 150 }} />
+        {/* <Button
+            onPress={() => {
+              setShowType("banner");
+              setViewImage([{ url: `${IMAGE_BASE_URL}/user/banner/${userInfo?.avatar}` }]);
+              setVisible(true);
+              // modalizeRef?.current?.open();
+              // setViewImageModal(true);
+            }}
+          >
+            <Image
+              checkEmpty={userInfo?.avatar}
+              source={{
+                uri: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}`,
+              }}
+              style={{
+                height: 100,
+                width: 100,
+                borderRadius: 50,
+                borderWidth: 2,
+                borderColor: "white",
+              }}
+            />
+          </Button> */}
         <Block>
           <Button
             style={{
@@ -49,9 +82,11 @@ const Information: React.FC<Props> = props => {
               marginLeft: 20,
             }}
             onPress={() => {
-              setViewImageModal(true);
               setShowType("avatar");
               setViewImage([{ url: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}` }]);
+              setVisible(true);
+              // modalizeRef?.current?.open();
+              // setViewImageModal(true);
             }}
           >
             <Image
@@ -69,23 +104,23 @@ const Information: React.FC<Props> = props => {
             />
           </Button>
           <Text size={20} title ml={20} style={{ width: 300 }}>
-            {userInfo?.name}
+            {userInfo?.name || ""}
           </Text>
           <Block ml={15}>
             <Text my={5} color="black">
-              Thích những món ăn ngon{" "}
+              {userInfo?.description || ""}
             </Text>
             <Block row mb={5}>
-              <AntIcon name="enviromento" size={20} color="black" />
-              <Text color="black">{userInfo?.from}</Text>
+              <AntIcon name="enviromento" size={20} color="black" style={{ marginRight: 5 }} />
+              <Text color="black">{userInfo?.from || ""}</Text>
             </Block>
             <Block row mb={5}>
-              <AntIcon name="gift" size={20} color="black" />
-              <Text color="black">{userInfo?.date_of_birth}</Text>
+              <AntIcon name="gift" size={20} color="black" style={{ marginRight: 5 }} />
+              <Text color="black">{dayjs(userInfo?.birthday).format("DD-MM-YYYY") || ""}</Text>
             </Block>
             <Block row mb={5}>
-              <MaIcon name="work-outline" size={20} color="black" />
-              <Text color="black">{userInfo?.occupation}</Text>
+              <MaIcon name="work-outline" size={20} color="black" style={{ marginRight: 5 }} />
+              <Text color="black">{userInfo?.occupation || ""}</Text>
             </Block>
           </Block>
           <Button
@@ -133,6 +168,13 @@ const Information: React.FC<Props> = props => {
           onSwipeDown={() => setViewImageModal(false)}
         />
       </Modal>
+      <BottomSheet
+        height={230}
+        radius={10}
+        visible={visible}
+        setVisible={setVisible}
+        setViewImageModal={setViewImageModal}
+      />
     </>
   );
 };

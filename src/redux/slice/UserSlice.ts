@@ -38,6 +38,15 @@ const UserSlice = createSlice({
       state.actionLoading = false;
       state.userInfo = action.payload.data;
     },
+    updateUserInfo(state, action: PayloadAction<any>) {
+      state.actionLoading = true;
+    },
+
+    updateUserInfoSuccess(state, action: PayloadAction<any>) {
+      state.actionLoading = false;
+      console.log("updateUserInfoSuccess", action.payload);
+      state.userInfo = action.payload.data;
+    },
 
     hideActionLoading(state) {
       state.actionLoading = false;
@@ -54,5 +63,7 @@ export const {
   logoutSuccess,
   getUserInfo,
   getUserInfoSuccess,
+  updateUserInfo,
+  updateUserInfoSuccess,
 } = UserSlice.actions;
 export default UserSlice.reducer;
