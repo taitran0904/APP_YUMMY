@@ -1,21 +1,29 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { ScrollView } from "react-native";
 import Header from "../../components/header";
 import { PostItem } from "../../components/home/post-item";
 import { Stories } from "../../components/home/stories";
+import { API_ENDPOINT, IMAGE_BASE_URL } from "../../constant";
 import { AntIcon, Block, Button, IoIcon, Text } from "../../helper";
 import DatePicker from "../../helper/DatePicker";
 import Image from "../../helper/Image";
 import { $gray3, $primary, $primary2 } from "../../helper/theme";
+import { useAppDispatch, useSelector } from "../../hooks";
 import useOrientation from "../../hooks/useOrientation";
+import { fetchUserInfo } from "../../redux/apis/user";
+import { getUserInfo } from "../../redux/slice/UserSlice";
 function HomeScreen() {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
   const { windowWidth } = useOrientation();
   const { t } = useTranslation();
+
+  const token = useSelector(state => state.user.token);
+  const userInfo = useSelector((state: any) => state.user.userInfo);
+
   const [open, setOpen] = useState(false);
-  const [date, setDate] = useState();
 
   return (
     <Block>
@@ -29,10 +37,17 @@ function HomeScreen() {
         }
         // center={<AntIcon name="user" size={24} color="black" />}
         right={
-          <Button onPress={() => navigation.navigate("ProfileScreen")}>
+          <Button
+            onPress={() => {
+              dispatch(getUserInfo(token));
+              navigation.navigate("ProfileScreen");
+            }}
+          >
             <Image
-              pure
-              source={require("../../assets/images/Rose.jpg")}
+              checkEmpty={userInfo?.avatar}
+              source={{
+                uri: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}`,
+              }}
               style={{
                 width: 50,
                 height: 50,

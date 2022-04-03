@@ -1,2 +1,3 @@
 import Information from "../profile/information";
-export { Information };
+import BottomSheet from "../profile/bottom-sheet";
+export { Information, BottomSheet };

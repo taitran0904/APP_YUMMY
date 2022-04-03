@@ -31,11 +31,39 @@ const UserSlice = createSlice({
       state.token = null;
     },
 
+    getUserInfo(state, action: PayloadAction<any>) {
+      state.actionLoading = true;
+    },
+    getUserInfoSuccess(state, action: PayloadAction<any>) {
+      state.actionLoading = false;
+      state.userInfo = action.payload.data;
+    },
+    updateUserInfo(state, action: PayloadAction<any>) {
+      state.actionLoading = true;
+    },
+
+    updateUserInfoSuccess(state, action: PayloadAction<any>) {
+      state.actionLoading = false;
+      console.log("updateUserInfoSuccess", action.payload);
+      state.userInfo = action.payload.data;
+    },
+
     hideActionLoading(state) {
       state.actionLoading = false;
     },
   },
 });
 
-export const { saveToken, login, loginSuccess, hideActionLoading, logout, logoutSuccess } = UserSlice.actions;
+export const {
+  saveToken,
+  login,
+  loginSuccess,
+  hideActionLoading,
+  logout,
+  logoutSuccess,
+  getUserInfo,
+  getUserInfoSuccess,
+  updateUserInfo,
+  updateUserInfoSuccess,
+} = UserSlice.actions;
 export default UserSlice.reducer;

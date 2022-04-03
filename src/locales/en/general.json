@@ -26,6 +26,11 @@
   "CREATE_POST": "Create post",
   "POST": "Post",
   "LOGIN": "Login",
-  "REGISTER": "Register"
-  // }
+  "REGISTER": "Register",
+  "CHANGE_PASSWORD": "Change password",
+  "CHANGE_PROFILE": "Change profile",
+  "SAVE": "Save",
+  "SEE_PICTURE": "See picture",
+  "UPDATE_PHOTO": "Update photo",
+  "CANCEL": "Cancel"
 }

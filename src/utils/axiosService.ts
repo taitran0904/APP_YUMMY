@@ -1,21 +1,21 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { API_ENDPOINT } from "../constant";
 
 type OptionProps = {
   url: string;
-  method: "post" | "get" | "put" | "delete";
+  method: "post" | "get" | "delete" | "put";
   token?: string;
   isFormData?: boolean;
   data?: object;
   params?: any;
 };
 
-const service = (option: OptionProps) => {
-  const config: any = {
+export default function AxiosService(option: OptionProps) {
+  const config: AxiosRequestConfig = {
     url: API_ENDPOINT + option.url,
     method: option.method,
     headers: {
-      "x-access-token": option.token,
+      Authorization: `Bearer ${option.token}`,
       "Content-Type": option.isFormData ? "multipart/form-data" : "application/json",
     },
     timeout: 30000,
@@ -30,6 +30,4 @@ const service = (option: OptionProps) => {
   }
 
   return axios(config);
-};
-
-export default service;
+}
