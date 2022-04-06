@@ -32,5 +32,8 @@
   "SAVE": "Save",
   "SEE_PICTURE": "See picture",
   "UPDATE_PHOTO": "Update photo",
-  "CANCEL": "Cancel"
+  "CANCEL": "Cancel",
+  "UPDATE": "Update",
+  "DELETE_PICTURE": "Delete picture",
+  "CHANGE_PICTURE": "Change picture"
 }

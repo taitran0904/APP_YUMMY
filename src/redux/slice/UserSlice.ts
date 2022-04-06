@@ -42,6 +42,10 @@ const UserSlice = createSlice({
       state.actionLoading = true;
     },
 
+    updateUserPhoto(state, action: PayloadAction<any>) {
+      state.actionLoading = true;
+    },
+
     updateUserInfoSuccess(state, action: PayloadAction<any>) {
       state.actionLoading = false;
       console.log("updateUserInfoSuccess", action.payload);
@@ -64,6 +68,7 @@ export const {
   getUserInfo,
   getUserInfoSuccess,
   updateUserInfo,
+  updateUserPhoto,
   updateUserInfoSuccess,
 } = UserSlice.actions;
 export default UserSlice.reducer;

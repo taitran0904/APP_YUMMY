@@ -5,8 +5,8 @@ type OptionProps = {
   url: string;
   method: "post" | "get" | "delete" | "put";
   token?: string;
-  isFormData?: boolean;
   data?: object;
+  isFormData?: boolean;
   params?: any;
 };
 
