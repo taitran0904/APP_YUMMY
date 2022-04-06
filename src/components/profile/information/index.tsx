@@ -1,5 +1,6 @@
+import axios, { AxiosResponse } from "axios";
 import dayjs from "dayjs";
-import React, { useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
@@ -8,7 +9,10 @@ import { IMAGE_BASE_URL } from "../../../constant";
 import { AntIcon, Block, Button, MaIcon, Text } from "../../../helper";
 import Image from "../../../helper/Image";
 import { $primary } from "../../../helper/theme";
+import { useAppDispatch, useSelector } from "../../../hooks";
 import useOrientation from "../../../hooks/useOrientation";
+import { updateUserInfoAPI } from "../../../redux/apis/user";
+import { updateUserPhoto } from "../../../redux/slice/UserSlice";
 import BottomSheet from "../bottom-sheet";
 
 type Props = {
@@ -24,15 +28,17 @@ type Props = {
 const Information: React.FC<Props> = props => {
   const { userInfo } = props;
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const modalizeRef = useRef(null);
   const { windowHeight } = useOrientation();
+
+  const token = useSelector(state => state.user.token);
 
   const [viewImage, setViewImage] = useState<any>(null);
   const [viewImageModal, setViewImageModal] = useState(false);
   const [showType, setShowType] = useState<any>(null);
   const [visible, setVisible] = useState<boolean>(false);
-
-  console.log("viewImageModal", viewImageModal);
+  const [newPicture, setNewPicture] = useState<any>({});
 
   const checkTypeShow = (type: any) => {
     if (type === "avatar" || type === "banner") {
@@ -75,6 +81,21 @@ const Information: React.FC<Props> = props => {
               }}
             />
           </Button> */}
+        {/* <Block>
+          <Image
+            checkEmpty={newPicture?.uri}
+            source={{
+              uri: newPicture?.uri,
+            }}
+            style={{
+              height: 100,
+              width: 100,
+              borderRadius: 50,
+              borderWidth: 2,
+              borderColor: "white",
+            }}
+          />
+        </Block> */}
         <Block>
           <Button
             style={{
@@ -83,6 +104,7 @@ const Information: React.FC<Props> = props => {
             }}
             onPress={() => {
               setShowType("avatar");
+
               setViewImage([{ url: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}` }]);
               setVisible(true);
               // modalizeRef?.current?.open();
@@ -174,6 +196,9 @@ const Information: React.FC<Props> = props => {
         visible={visible}
         setVisible={setVisible}
         setViewImageModal={setViewImageModal}
+        setNewPicture={setNewPicture}
+        newPicture={newPicture}
+        showType={showType}
       />
     </>
   );

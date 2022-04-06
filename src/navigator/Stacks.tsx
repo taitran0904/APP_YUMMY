@@ -2,9 +2,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import CommentScreen from "../components/home/post-item/comment-screen";
 import PostDetailScreen from "../components/post/post-item-detail";
+import PreviewScreen from "../components/profile/information/preview";
 import AuthScreen, { LoginScreen, RegisterScreen } from "../screens/auth";
 import HomeScreen from "../screens/home";
 import CreatePostScreen from "../screens/post";
+import PostDetail from "../screens/post/post-detail";
 import ProfileScreen from "../screens/profile";
 import EditProfileScreen from "../screens/profile/edit-profile";
 import SearchScreen from "../screens/search";
@@ -38,6 +40,8 @@ export function HomeStackScreen() {
       <HomeStack.Screen name="CreatePostScreen" component={CreatePostScreen} />
       <HomeStack.Screen name="PostDetailScreen" component={PostDetailScreen} />
       <HomeStack.Screen name="EditProfileScreen" component={EditProfileScreen} />
+      <HomeStack.Screen name="PostDetail" component={PostDetail} />
+      <HomeStack.Screen name="PreviewScreen" component={PreviewScreen} />
     </HomeStack.Navigator>
   );
 }
