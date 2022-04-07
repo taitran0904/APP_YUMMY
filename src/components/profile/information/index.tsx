@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from "axios";
 import dayjs from "dayjs";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Modal } from "react-native";
+import { Modal, StyleSheet, Image as IM } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
 import { Modalize } from "react-native-modalize";
 import { IMAGE_BASE_URL } from "../../../constant";
@@ -23,16 +23,12 @@ type Props = {
     birthday?: string;
     occupation?: string;
     description?: string;
+    cover_photo?: string;
   };
 };
 const Information: React.FC<Props> = props => {
   const { userInfo } = props;
   const { t } = useTranslation();
-  const dispatch = useAppDispatch();
-  const modalizeRef = useRef(null);
-  const { windowHeight } = useOrientation();
-
-  const token = useSelector(state => state.user.token);
 
   const [viewImage, setViewImage] = useState<any>(null);
   const [viewImageModal, setViewImageModal] = useState(false);
@@ -57,58 +53,39 @@ const Information: React.FC<Props> = props => {
   return (
     <>
       <Block>
-        <Image pure source={require("../../../assets/images/bg.jpg")} style={{ height: 150 }} />
-        {/* <Button
-            onPress={() => {
-              setShowType("banner");
-              setViewImage([{ url: `${IMAGE_BASE_URL}/user/banner/${userInfo?.avatar}` }]);
-              setVisible(true);
-              // modalizeRef?.current?.open();
-              // setViewImageModal(true);
-            }}
-          >
+        <Button
+          onPress={() => {
+            setShowType("banner");
+            userInfo?.cover_photo !== "no-photo"
+              ? setViewImage([{ uri: `${IMAGE_BASE_URL}/user/coverPhoto/${userInfo?.cover_photo}` }])
+              : setViewImage([require("../../../assets/images/no-cover.jpg")]);
+            setVisible(true);
+          }}
+        >
+          {userInfo?.cover_photo !== "no-photo" ? (
             <Image
-              checkEmpty={userInfo?.avatar}
               source={{
-                uri: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}`,
+                uri: `${IMAGE_BASE_URL}/user/coverPhoto/${userInfo?.cover_photo}`,
               }}
-              style={{
-                height: 100,
-                width: 100,
-                borderRadius: 50,
-                borderWidth: 2,
-                borderColor: "white",
-              }}
+              pure
+              style={{ height: 150 }}
             />
-          </Button> */}
-        {/* <Block>
-          <Image
-            checkEmpty={newPicture?.uri}
-            source={{
-              uri: newPicture?.uri,
-            }}
-            style={{
-              height: 100,
-              width: 100,
-              borderRadius: 50,
-              borderWidth: 2,
-              borderColor: "white",
-            }}
-          />
-        </Block> */}
+          ) : (
+            <Image pure source={require("../../../assets/images/no-cover.jpg")} style={{ height: 150 }} />
+          )}
+        </Button>
         <Block>
           <Button
             style={{
               marginTop: -40,
               marginLeft: 20,
+              width: 100,
+              borderRadius: 50,
             }}
             onPress={() => {
               setShowType("avatar");
-
               setViewImage([{ url: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}` }]);
               setVisible(true);
-              // modalizeRef?.current?.open();
-              // setViewImageModal(true);
             }}
           >
             <Image
@@ -116,13 +93,7 @@ const Information: React.FC<Props> = props => {
               source={{
                 uri: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}`,
               }}
-              style={{
-                height: 100,
-                width: 100,
-                borderRadius: 50,
-                borderWidth: 2,
-                borderColor: "white",
-              }}
+              style={styles.avatar}
             />
           </Button>
           <Text size={20} title ml={20} style={{ width: 300 }}>
@@ -204,3 +175,13 @@ const Information: React.FC<Props> = props => {
   );
 };
 export default Information;
+
+const styles = StyleSheet.create({
+  avatar: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: "white",
+  },
+});

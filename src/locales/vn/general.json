@@ -35,5 +35,8 @@
   "CANCEL": "Trở về",
   "UPDATE": "Cập nhật",
   "DELETE_PICTURE": "Xóa ảnh",
-  "CHANGE_PICTURE": "Đổi ảnh"
+  "CHANGE_PICTURE": "Đổi ảnh",
+  "PUBLIC": "Công khai",
+  "FRIEND_ONLY": "Chỉ bạn bè",
+  "ONLY_ME": "Chỉ mình tôi"
 }

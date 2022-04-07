@@ -1,12 +1,19 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { StyleSheet, Text, View } from "react-native";
 import Header from "../../../components/header";
+import { IMAGE_BASE_URL } from "../../../constant";
 import { Block, Button, Input, MaIcon } from "../../../helper";
 import Image from "../../../helper/Image";
+import { $primary } from "../../../helper/theme";
+import { useSelector } from "../../../hooks";
 
 export default function PostDetail() {
   const { t } = useTranslation();
+  const navigation = useNavigation();
+
+  const userInfo: any = useSelector(state => state.user.userInfo);
   return (
     <>
       <Header
@@ -33,14 +40,18 @@ export default function PostDetail() {
       />
       <Block my={20}>
         <Button row middle mb={15} mx={10} onPress={() => navigation.navigate("ProfileScreen")}>
-          <Image style={{ width: 40, height: 40, borderRadius: 25 }} />
+          <Image
+            checkEmpty={userInfo?.avatar}
+            source={`${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}`}
+            style={{ width: 40, height: 40, borderRadius: 25 }}
+          />
           <Text title color="black" size={18} ml={10}>
             Tai tran
           </Text>
         </Button>
-        <Block>
+        {/* <Block>
           <Input style={{ backgroundColor: "red", height: 300 }} />
-        </Block>
+        </Block> */}
       </Block>
     </>
   );

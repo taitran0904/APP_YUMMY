@@ -25,6 +25,10 @@ function HomeScreen() {
 
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    dispatch(getUserInfo(token));
+  }, [token]);
+
   return (
     <Block>
       <Header
@@ -39,7 +43,6 @@ function HomeScreen() {
         right={
           <Button
             onPress={() => {
-              dispatch(getUserInfo(token));
               navigation.navigate("ProfileScreen");
             }}
           >

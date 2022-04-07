@@ -19,11 +19,14 @@ import { IMAGE_BASE_URL } from "../../../../constant";
 
 const PreviewScreen: React.FC<Props> = () => {
   const { t } = useTranslation();
+  const route = useRoute();
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
 
   const userInfo: any = useSelector(state => state.user.userInfo);
   const loading = useSelector(state => state.user.actionLoading);
+
+  const showType: any = route.params.showType;
 
   const [newPicture, setNewPicture] = useState<any>({
     uri: "",
@@ -34,8 +37,8 @@ const PreviewScreen: React.FC<Props> = () => {
   const [isDelete, setDelete] = useState<boolean>(false);
 
   useEffect(() => {
-    setNewPicture({ ...newPicture, photoType: "avatar" });
-  }, [newPicture.uri]);
+    setNewPicture({ ...newPicture, photoType: showType });
+  }, [newPicture.uri, showType]);
 
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
@@ -75,8 +78,11 @@ const PreviewScreen: React.FC<Props> = () => {
               style={{ backgroundColor: $primary }}
               onPress={() => {
                 isDelete
-                  ? dispatch(updateUserInfo({ avatar: "no-photo" }))
+                  ? showType === "avatar"
+                    ? dispatch(updateUserInfo({ avatar: "no-photo" }))
+                    : dispatch(updateUserInfo({ cover_photo: "no-photo" }))
                   : dispatch(updateUserPhoto(newPicture));
+
                 setNewPicture({ uri: "", name: "", photoType: "", type: "" });
                 setDelete(false);
                 loading === false && navigation.goBack();
@@ -94,21 +100,66 @@ const PreviewScreen: React.FC<Props> = () => {
         }}
       />
       <Block>
-        <Block center middle style={{ borderBottomWidth: 1, borderBottomColor: $gray, padding: 20 }}>
-          {isDelete ? (
-            <Image pure style={styles.avatar} source={require("../../../../assets/images/no-avatar.png")} />
-          ) : (
-            <Image
-              style={styles.avatar}
-              checkEmpty={userInfo?.avatar || newPicture?.uri}
-              source={
-                newPicture.uri !== ""
-                  ? { uri: newPicture?.uri }
-                  : { uri: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}` }
-              }
-            />
-          )}
-        </Block>
+        {showType === "avatar" ? (
+          <Block center middle style={{ borderBottomWidth: 1, borderBottomColor: $gray, padding: 20 }}>
+            {isDelete === true ? (
+              <Image pure style={styles.avatar} source={require("../../../../assets/images/no-avatar.png")} />
+            ) : (
+              <Image
+                style={styles.avatar}
+                checkEmpty={newPicture?.uri || userInfo?.avatar}
+                source={
+                  newPicture.uri !== ""
+                    ? { uri: newPicture?.uri }
+                    : { uri: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}` }
+                }
+              />
+            )}
+          </Block>
+        ) : (
+          <>
+            <Block>
+              {isDelete === true ? (
+                <Image
+                  style={{ height: 150 }}
+                  pure
+                  source={require("../../../../assets/images/no-cover.jpg")}
+                />
+              ) : newPicture?.uri || userInfo?.cover_photo !== "no-photo" ? (
+                <Image
+                  style={{ height: 150 }}
+                  pure
+                  source={
+                    newPicture.uri !== ""
+                      ? { uri: newPicture?.uri }
+                      : { uri: `${IMAGE_BASE_URL}/user/coverPhoto/${userInfo?.cover_photo}` }
+                  }
+                />
+              ) : (
+                <Image
+                  style={{ height: 150 }}
+                  pure
+                  source={require("../../../../assets/images/no-cover.jpg")}
+                />
+              )}
+            </Block>
+            <Block
+              style={{
+                marginTop: -40,
+                marginLeft: 20,
+              }}
+            >
+              <Image
+                checkEmpty={userInfo?.avatar}
+                source={{
+                  uri: `${IMAGE_BASE_URL}/user/avatar/${userInfo?.avatar}`,
+                }}
+                style={styles.avatarSmall}
+              />
+            </Block>
+          </>
+        )}
+
         <Block row space="around" style={{ marginTop: 20 }}>
           <Button
             center
@@ -148,5 +199,12 @@ const styles = StyleSheet.create({
     borderRadius: 150,
     borderWidth: 3,
     borderColor: $primary,
+  },
+  avatarSmall: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    borderWidth: 2,
+    borderColor: "white",
   },
 });
