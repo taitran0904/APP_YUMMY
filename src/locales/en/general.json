@@ -35,5 +35,8 @@
   "CANCEL": "Cancel",
   "UPDATE": "Update",
   "DELETE_PICTURE": "Delete picture",
-  "CHANGE_PICTURE": "Change picture"
+  "CHANGE_PICTURE": "Change picture",
+  "PUBLIC": "Public",
+  "FRIEND_ONLY": "Friend only",
+  "ONLY_ME": "Only me"
 }

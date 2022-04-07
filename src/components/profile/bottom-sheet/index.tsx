@@ -52,7 +52,7 @@ const BottomSheet: React.FC<Props> = props => {
       color: "white",
       onPress: () => {
         setVisible(false);
-        navigation.navigate("PreviewScreen");
+        navigation.navigate("PreviewScreen", { showType });
       },
       // onPress: () => {
       //   choosePhotoFromLibrary();
@@ -62,9 +62,7 @@ const BottomSheet: React.FC<Props> = props => {
       title: t("CANCEL"),
       backgroundColor: $gray3,
       color: $primary,
-      onPress: () => {
-        console.log("see newPicture");
-      },
+      onPress: () => setVisible(false),
     },
   ];
 
