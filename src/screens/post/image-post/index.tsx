@@ -1,14 +1,14 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import Header from "../../components/header";
-import { IMAGE_BASE_URL } from "../../constant";
-import { AntIcon, Block, Button, FEIcon, Input, IoIcon, MaIcon, Modal, Text } from "../../helper";
-import Image from "../../helper/Image";
-import { $gray3, $primary } from "../../helper/theme";
-import { useSelector } from "../../hooks";
+import Header from "../../../components/header";
+import { IMAGE_BASE_URL } from "../../../constant";
+import { AntIcon, Block, Button, FEIcon, Input, IoIcon, MaIcon, Modal, Text } from "../../../helper";
+import Image from "../../../helper/Image";
+import { $gray3, $primary } from "../../../helper/theme";
+import { useSelector } from "../../../hooks";
 
-const CreatePostScreen: React.FC = () => {
+const CreateImagePostScreen: React.FC = () => {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
@@ -47,20 +47,30 @@ const CreatePostScreen: React.FC = () => {
     },
     {
       lable: t("HAPPY"),
-      icon: <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/happy.png")} />,
+      icon: (
+        <Image style={{ height: 30, width: 30 }} pure source={require("../../../assets/icons/happy.png")} />
+      ),
     },
     {
       lable: t("SAD"),
-      icon: <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/sad.png")} />,
+      icon: (
+        <Image style={{ height: 30, width: 30 }} pure source={require("../../../assets/icons/sad.png")} />
+      ),
     },
     {
       lable: t("ANGRY"),
-      icon: <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/angry.png")} />,
+      icon: (
+        <Image style={{ height: 30, width: 30 }} pure source={require("../../../assets/icons/angry.png")} />
+      ),
     },
     {
       lable: t("SURPRISED"),
       icon: (
-        <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/surprised.png")} />
+        <Image
+          style={{ height: 30, width: 30 }}
+          pure
+          source={require("../../../assets/icons/surprised.png")}
+        />
       ),
     },
   ];
@@ -135,12 +145,16 @@ const CreatePostScreen: React.FC = () => {
         </Block>
         <Block>
           <Input
-            textSize={30}
+            placeholder={t("WHAT_ARE_YOU_THINKING")}
+            textSize={14}
             multiline
-            numberOfLines={4}
+            numberOfLines={3}
             onChangeText={(e: string) => setPost({ ...post, body: e })}
-            style={{ backgroundColor: "red", height: 300, paddingHorizontal: 20 }}
+            style={{ paddingHorizontal: 15 }}
           />
+          <Button>
+            <Image pure source={require("../../../assets/images/image.png")} />
+          </Button>
         </Block>
       </Block>
       <Modal
@@ -184,4 +198,4 @@ const CreatePostScreen: React.FC = () => {
   );
 };
 
-export default CreatePostScreen;
+export default CreateImagePostScreen;

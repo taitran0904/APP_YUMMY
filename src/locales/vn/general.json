@@ -32,5 +32,18 @@
   "SAVE": "Lưu",
   "SEE_PICTURE": "Xem ảnh",
   "UPDATE_PHOTO": "Cập nhật ảnh mới",
-  "CANCEL": "Trở về"
+  "CANCEL": "Trở về",
+  "UPDATE": "Cập nhật",
+  "DELETE_PICTURE": "Xóa ảnh",
+  "CHANGE_PICTURE": "Đổi ảnh",
+  "PUBLIC": "Công khai",
+  "FRIEND_ONLY": "Chỉ bạn bè",
+  "ONLY_ME": "Chỉ mình tôi",
+  "NONE": "Bình thường",
+  "HAPPY": "Hạnh phúc",
+  "SAD": "Buồn",
+  "ANGRY": "Giận",
+  "SURPRISED": "Ngạc nhiên",
+  "FEELING": "Đang cảm thấy",
+  "WHAT_ARE_YOU_THINKING": "Bạn đang nghĩ gì?"
 }

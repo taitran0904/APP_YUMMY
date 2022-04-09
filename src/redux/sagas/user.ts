@@ -15,9 +15,11 @@ import {
   logoutSuccess,
   updateUserInfo,
   updateUserInfoSuccess,
+  updateUserPhoto,
 } from "../slice/UserSlice";
 import { errorToast, toast } from "../../helper/ToastHelper";
 import { Alert } from "react-native";
+import { generateImage } from "../../helper/functionHelper";
 
 function* loginFlowSaga(action: PayloadAction<LoginProps>) {
   const { email, password } = action.payload;
@@ -76,9 +78,35 @@ function* updateUserInfoSaga(action: PayloadAction<any>) {
   }
 }
 
+function* updateUserPhotoSaga(action: PayloadAction<any>) {
+  const token: string = yield select((state: RootState) => state.user.token);
+  try {
+    const { uri, name, type, photoType } = action.payload;
+    console.log("action.payload", action.payload);
+    const formData = new FormData();
+    if (photoType === "avatar") {
+      formData.append("avatar", { uri: uri, name: name, type: type });
+    } else {
+      formData.append("cover_photo", { uri: uri, name: name, type: type });
+    }
+
+    const res: AxiosResponse = yield call(updateUserInfoAPI, token, formData, true);
+    console.log("res.data", res.data);
+    const { data } = res;
+    if (data.success) {
+      yield put(updateUserInfoSuccess(data));
+    }
+  } catch (error) {
+    //
+  } finally {
+    yield put(hideActionLoading());
+  }
+}
+
 export default function* userWatcher() {
   yield takeLatest(login.type, loginFlowSaga);
   yield takeLatest(logout.type, logoutSaga);
   yield takeEvery(getUserInfo.type, getUserInfoSaga);
   yield takeLatest(updateUserInfo.type, updateUserInfoSaga);
+  yield takeLatest(updateUserPhoto.type, updateUserPhotoSaga);
 }

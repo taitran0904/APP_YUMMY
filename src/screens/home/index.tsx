@@ -25,6 +25,10 @@ function HomeScreen() {
 
   const [open, setOpen] = useState(false);
 
+  useEffect(() => {
+    dispatch(getUserInfo(token));
+  }, [token]);
+
   return (
     <Block>
       <Header
@@ -39,7 +43,6 @@ function HomeScreen() {
         right={
           <Button
             onPress={() => {
-              dispatch(getUserInfo(token));
               navigation.navigate("ProfileScreen");
             }}
           >
@@ -80,6 +83,7 @@ function HomeScreen() {
             center
             middle
             py={10}
+            onPress={() => navigation.navigate("CreateImagePostScreen")}
             style={{ width: windowWidth / 2, borderRightWidth: 1, borderRightColor: $gray3 }}
           >
             <IoIcon name="image" size={20} color={$primary2} />

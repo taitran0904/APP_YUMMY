@@ -1,9 +1,11 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import { StyleSheet, Modal } from "react-native";
+import { useTranslation } from "react-i18next";
+
 import { Block, Button, Text } from "../../../helper";
 import { $gray3, $primary } from "../../../helper/theme";
 import useOrientation from "../../../hooks/useOrientation";
+import { useNavigation } from "@react-navigation/native";
 
 export interface Props {
   visible?: boolean;
@@ -12,11 +14,25 @@ export interface Props {
   radius?: number;
   setViewImageModal?: any;
   style?: any;
+  setNewPicture?: any;
+  newPicture?: any;
+  showType?: any;
 }
 
 const BottomSheet: React.FC<Props> = props => {
   const { t } = useTranslation();
-  const { visible, setVisible, height, radius, style, setViewImageModal } = props;
+  const navigation = useNavigation();
+  const {
+    visible,
+    setVisible,
+    height,
+    radius,
+    style,
+    setViewImageModal,
+    setNewPicture,
+    newPicture,
+    showType,
+  } = props;
   const { windowWidth, windowHeight } = useOrientation();
 
   const buttonGroup = [
@@ -34,18 +50,19 @@ const BottomSheet: React.FC<Props> = props => {
       title: t("UPDATE_PHOTO"),
       backgroundColor: $primary,
       color: "white",
-
       onPress: () => {
-        console.log("see picture");
+        setVisible(false);
+        navigation.navigate("PreviewScreen", { showType });
       },
+      // onPress: () => {
+      //   choosePhotoFromLibrary();
+      // },
     },
     {
       title: t("CANCEL"),
       backgroundColor: $gray3,
       color: $primary,
-      onPress: () => {
-        console.log("see picture");
-      },
+      onPress: () => setVisible(false),
     },
   ];
 
