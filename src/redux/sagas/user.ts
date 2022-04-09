@@ -82,7 +82,6 @@ function* updateUserPhotoSaga(action: PayloadAction<any>) {
   const token: string = yield select((state: RootState) => state.user.token);
   try {
     const { uri, name, type, photoType } = action.payload;
-
     const formData = new FormData();
     if (photoType === "avatar") {
       formData.append("avatar", { uri: uri, name: name, type: type });
