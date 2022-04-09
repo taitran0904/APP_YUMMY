@@ -5,7 +5,7 @@ import PostDetailScreen from "../components/post/post-item-detail";
 import PreviewScreen from "../components/profile/information/preview";
 import AuthScreen, { LoginScreen, RegisterScreen } from "../screens/auth";
 import HomeScreen from "../screens/home";
-import CreatePostScreen from "../screens/post";
+import CreatePostScreen from "../screens/post/status-post";
 import CreateImagePostScreen from "../screens/post/image-post";
 import PostDetail from "../screens/post/post-detail";
 import ProfileScreen from "../screens/profile";

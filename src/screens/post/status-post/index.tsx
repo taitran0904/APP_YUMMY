@@ -1,15 +1,17 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import Header from "../../components/header";
-import { IMAGE_BASE_URL } from "../../constant";
-import { AntIcon, Block, Button, FEIcon, Input, IoIcon, MaIcon, Modal, Text } from "../../helper";
-import Image from "../../helper/Image";
-import { $gray3, $primary } from "../../helper/theme";
-import { useSelector } from "../../hooks";
+import Header from "../../../components/header";
+import { IMAGE_BASE_URL } from "../../../constant";
+import { AntIcon, Block, Button, FEIcon, Input, IoIcon, MaIcon, Modal, Text } from "../../../helper";
+import Image from "../../../helper/Image";
+import { $gray3, $primary } from "../../../helper/theme";
+import { useAppDispatch, useSelector } from "../../../hooks";
+import { createPost } from "../../../redux/slice/PostSlice";
 
 const CreatePostScreen: React.FC = () => {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
   const userInfo: any = useSelector(state => state.user.userInfo);
@@ -22,6 +24,7 @@ const CreatePostScreen: React.FC = () => {
     photoFiles: [],
     icon_source: null,
   });
+
   const [visible, setVisible] = useState<boolean>(false);
   const [dataModal, setDataModal] = useState<any>();
 
@@ -35,7 +38,7 @@ const CreatePostScreen: React.FC = () => {
       icon: <FEIcon name="users" size={30} color={$primary} />,
     },
     {
-      lable: t("PUBLIC"),
+      lable: t("ONLY_ME"),
       icon: <FEIcon name="lock" size={30} color={$primary} />,
     },
   ];
@@ -47,20 +50,30 @@ const CreatePostScreen: React.FC = () => {
     },
     {
       lable: t("HAPPY"),
-      icon: <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/happy.png")} />,
+      icon: (
+        <Image style={{ height: 30, width: 30 }} pure source={require("../../../assets/icons/happy.png")} />
+      ),
     },
     {
       lable: t("SAD"),
-      icon: <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/sad.png")} />,
+      icon: (
+        <Image style={{ height: 30, width: 30 }} pure source={require("../../../assets/icons/sad.png")} />
+      ),
     },
     {
       lable: t("ANGRY"),
-      icon: <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/angry.png")} />,
+      icon: (
+        <Image style={{ height: 30, width: 30 }} pure source={require("../../../assets/icons/angry.png")} />
+      ),
     },
     {
       lable: t("SURPRISED"),
       icon: (
-        <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/surprised.png")} />
+        <Image
+          style={{ height: 30, width: 30 }}
+          pure
+          source={require("../../../assets/icons/surprised.png")}
+        />
       ),
     },
   ];
@@ -78,7 +91,16 @@ const CreatePostScreen: React.FC = () => {
         }
         right={
           <Block style={{ alignItems: "flex-end", width: "100%" }}>
-            <Button mr={15} py={5} px={10} radius={5} style={{ backgroundColor: $primary }}>
+            <Button
+              mr={15}
+              py={5}
+              px={10}
+              radius={5}
+              onPress={() => {
+                dispatch(createPost(post));
+              }}
+              style={{ backgroundColor: $primary }}
+            >
               <Text color="white" title>
                 {t("POST")}
               </Text>
@@ -161,7 +183,7 @@ const CreatePostScreen: React.FC = () => {
               onPress={() => {
                 dataModal.length === 3
                   ? setPost({ ...post, public: index })
-                  : setPost({ ...post, status: item.lable });
+                  : setPost({ ...post, status: item.lable.toLowerCase() });
                 setVisible(false);
               }}
               style={{
