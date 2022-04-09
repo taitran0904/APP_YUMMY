@@ -38,5 +38,12 @@
   "CHANGE_PICTURE": "Đổi ảnh",
   "PUBLIC": "Công khai",
   "FRIEND_ONLY": "Chỉ bạn bè",
-  "ONLY_ME": "Chỉ mình tôi"
+  "ONLY_ME": "Chỉ mình tôi",
+  "NONE": "Bình thường",
+  "HAPPY": "Hạnh phúc",
+  "SAD": "Buồn",
+  "ANGRY": "Giận",
+  "SURPRISED": "Ngạc nhiên",
+  "FEELING": "Đang cảm thấy",
+  "WHAT_ARE_YOU_THINKING": "Bạn đang nghĩ gì?"
 }

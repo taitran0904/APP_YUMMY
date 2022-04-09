@@ -17,6 +17,7 @@ interface Props {
   textSize?: number;
   editable?: boolean;
   selectTextOnFocus?: boolean;
+  numberOfLines?: number;
   onChangeText: (e: string) => void;
   // onBlur?: (e?: any) => void;
   // onFocus?: (e?: any) => void;
