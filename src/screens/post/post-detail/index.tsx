@@ -1,30 +1,18 @@
-import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
-<<<<<<<< HEAD:src/screens/post/post-detail/index.tsx
-import { StyleSheet, Text, View } from "react-native";
+import { useSelector } from "../../../hooks";
+import { AntIcon, Block, Button, FEIcon, Input, IoIcon, MaIcon, Modal, Text } from "../../../helper";
+import Image from "../../../helper/Image";
 import Header from "../../../components/header";
 import { IMAGE_BASE_URL } from "../../../constant";
-import { Block, Button, Input, MaIcon } from "../../../helper";
-import Image from "../../../helper/Image";
 import { $primary } from "../../../helper/theme";
-import { useSelector } from "../../../hooks";
-========
-import Header from "../../components/header";
-import { IMAGE_BASE_URL } from "../../constant";
-import { AntIcon, Block, Button, FEIcon, Input, IoIcon, MaIcon, Modal, Text } from "../../helper";
-import Image from "../../helper/Image";
-import { $gray3, $primary } from "../../helper/theme";
-import { useSelector } from "../../hooks";
->>>>>>>> 1505dc52d2c59c465a41fd72ade22061f6a21cdf:src/screens/post/index.tsx
 
 export default function PostDetail() {
   const { t } = useTranslation();
   const navigation = useNavigation();
 
   const userInfo: any = useSelector(state => state.user.userInfo);
-<<<<<<<< HEAD:src/screens/post/post-detail/index.tsx
-========
 
   const [post, setPost] = useState<any>({
     public: 0,
@@ -59,25 +47,34 @@ export default function PostDetail() {
     },
     {
       lable: t("HAPPY"),
-      icon: <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/happy.png")} />,
+      icon: (
+        <Image style={{ height: 30, width: 30 }} pure source={require("../../../assets/icons/happy.png")} />
+      ),
     },
     {
       lable: t("SAD"),
-      icon: <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/sad.png")} />,
+      icon: (
+        <Image style={{ height: 30, width: 30 }} pure source={require("../../../assets/icons/sad.png")} />
+      ),
     },
     {
       lable: t("ANGRY"),
-      icon: <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/angry.png")} />,
+      icon: (
+        <Image style={{ height: 30, width: 30 }} pure source={require("../../../assets/icons/angry.png")} />
+      ),
     },
     {
       lable: t("SURPRISED"),
       icon: (
-        <Image style={{ height: 30, width: 30 }} pure source={require("../../assets/icons/surprised.png")} />
+        <Image
+          style={{ height: 30, width: 30 }}
+          pure
+          source={require("../../../assets/icons/surprised.png")}
+        />
       ),
     },
   ];
 
->>>>>>>> 1505dc52d2c59c465a41fd72ade22061f6a21cdf:src/screens/post/index.tsx
   return (
     <>
       <Header
@@ -103,7 +100,6 @@ export default function PostDetail() {
         }}
       />
       <Block my={20}>
-<<<<<<<< HEAD:src/screens/post/post-detail/index.tsx
         <Button row middle mb={15} mx={10} onPress={() => navigation.navigate("ProfileScreen")}>
           <Image
             checkEmpty={userInfo?.avatar}
@@ -117,7 +113,6 @@ export default function PostDetail() {
         {/* <Block>
           <Input style={{ backgroundColor: "red", height: 300 }} />
         </Block> */}
-========
         <Block row middle mb={15} space="between">
           <Button row middle mx={10} onPress={() => navigation.navigate("ProfileScreen")}>
             <Image
@@ -170,7 +165,6 @@ export default function PostDetail() {
             style={{ backgroundColor: "red", height: 300, paddingHorizontal: 20 }}
           />
         </Block>
->>>>>>>> 1505dc52d2c59c465a41fd72ade22061f6a21cdf:src/screens/post/index.tsx
       </Block>
       <Modal
         width={300}

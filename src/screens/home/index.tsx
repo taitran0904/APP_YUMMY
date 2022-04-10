@@ -5,14 +5,13 @@ import { ScrollView } from "react-native";
 import Header from "../../components/header";
 import { PostItem } from "../../components/home/post-item";
 import { Stories } from "../../components/home/stories";
-import { API_ENDPOINT, IMAGE_BASE_URL } from "../../constant";
+import { IMAGE_BASE_URL } from "../../constant";
 import { AntIcon, Block, Button, IoIcon, Text } from "../../helper";
 import DatePicker from "../../helper/DatePicker";
 import Image from "../../helper/Image";
 import { $gray3, $primary, $primary2 } from "../../helper/theme";
 import { useAppDispatch, useSelector } from "../../hooks";
 import useOrientation from "../../hooks/useOrientation";
-import { fetchUserInfo } from "../../redux/apis/user";
 import { getUserInfo } from "../../redux/slice/UserSlice";
 function HomeScreen() {
   const navigation = useNavigation();
@@ -22,6 +21,7 @@ function HomeScreen() {
 
   const token = useSelector(state => state.user.token);
   const userInfo = useSelector((state: any) => state.user.userInfo);
+  const postList = useSelector((state: any) => state.post.posts?.data);
 
   const [open, setOpen] = useState(false);
 

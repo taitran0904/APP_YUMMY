@@ -28,11 +28,21 @@ const PostSlice = createSlice({
       state.actionLoading = false;
       state.posts.data.push(action.payload.data);
     },
+    fetchPost(state) {
+      state.actionLoading = true;
+    },
+    fetchPostSuccess(state, action: PayloadAction<any>) {
+      state.actionLoading = false;
+      // console.log("hunhunhun", state.posts.data);
+      state.posts.data = action.payload;
+      state.posts.isFetched = true;
+    },
     hideActionLoading(state) {
       state.actionLoading = false;
     },
   },
 });
 
-export const { createPost, createPostSuccess, hideActionLoading } = PostSlice.actions;
+export const { createPost, createPostSuccess, fetchPost, fetchPostSuccess, hideActionLoading } =
+  PostSlice.actions;
 export default PostSlice.reducer;

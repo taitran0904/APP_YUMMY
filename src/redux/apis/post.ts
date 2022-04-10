@@ -10,3 +10,11 @@ export function createPostAPI(token: string, data: any) {
     data,
   });
 }
+
+export function fetchPostAPI(token: string) {
+  return request({
+    url: URL_CREATE_POST,
+    method: "get",
+    token,
+  });
+}

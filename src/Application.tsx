@@ -8,6 +8,7 @@ import { Block } from "./helper";
 import { useAppDispatch, useSelector } from "./hooks";
 import LoginScreen from "./screens/auth/login";
 import { saveToken } from "./redux/slice/UserSlice";
+import { fetchPost } from "./redux/slice/PostSlice";
 
 export default function Application() {
   const { i18n } = useTranslation();
@@ -40,6 +41,12 @@ export default function Application() {
   useEffect(() => {
     getToken();
   }, [getToken]);
+
+  useEffect(() => {
+    if (token) {
+      dispatch(fetchPost());
+    }
+  }, [token]);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

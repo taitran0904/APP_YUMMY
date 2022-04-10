@@ -94,10 +94,11 @@ const CreatePostScreen: React.FC = () => {
             <Button
               mr={15}
               py={5}
-              px={10}
+              px={20}
               radius={5}
               onPress={() => {
                 dispatch(createPost(post));
+                navigation.goBack();
               }}
               style={{ backgroundColor: $primary }}
             >
@@ -160,6 +161,7 @@ const CreatePostScreen: React.FC = () => {
             textSize={30}
             multiline
             numberOfLines={4}
+            placeholder={t("WHAT_ARE_YOU_THINKING")}
             onChangeText={(e: string) => setPost({ ...post, body: e })}
             style={{ backgroundColor: "red", height: 300, paddingHorizontal: 20 }}
           />

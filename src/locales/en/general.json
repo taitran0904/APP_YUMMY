@@ -45,5 +45,9 @@
   "ANGRY": "Angry",
   "SURPRISED": "Surprised",
   "FEELING": "Feeling",
-  "WHAT_ARE_YOU_THINKING": "What are you thinking?"
+  "WHAT_ARE_YOU_THINKING": "What are you thinking?",
+  "CHOOSE_FROM_LIBRARY": "Choose from library",
+  "TAKE_A_PHOTO": "Take a photo",
+  "DO_YOU_WANT_TO_DELETE_THIS_PICTURE": "Do you want to delete this picture?",
+  "DELETE": "Delete"
 }
