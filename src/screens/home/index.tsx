@@ -103,8 +103,9 @@ function HomeScreen() {
         </Block>
         <Stories />
         <Block>
-          <PostItem />
-          <PostItem />
+          {postList?.map((item: any, index: number) => (
+            <PostItem key={index} post={item} />
+          ))}
         </Block>
         {/* <Block center middle>
           <Button pa={20} onPress={() => setOpen(true)} style={{ backgroundColor: "blue" }}>
