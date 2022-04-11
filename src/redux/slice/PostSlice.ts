@@ -26,7 +26,7 @@ const PostSlice = createSlice({
     },
     createPostSuccess(state, action: PayloadAction<any>) {
       state.actionLoading = false;
-      state.posts.data.push(action.payload.data);
+      state.posts.data.unshift(action.payload.data);
     },
     fetchPost(state) {
       state.actionLoading = true;

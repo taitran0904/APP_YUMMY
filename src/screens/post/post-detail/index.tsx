@@ -16,7 +16,7 @@ export default function PostDetail() {
 
   const [post, setPost] = useState<any>({
     public: 0,
-    status: "none",
+    status: "normal",
     body: "",
     photos: [],
     photoFiles: [],

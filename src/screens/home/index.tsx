@@ -1,7 +1,7 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ScrollView } from "react-native";
+import { RefreshControl, ScrollView } from "react-native";
 import Header from "../../components/header";
 import { PostItem } from "../../components/home/post-item";
 import { Stories } from "../../components/home/stories";
@@ -77,46 +77,39 @@ function HomeScreen() {
         }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Block row style={{ borderBottomWidth: 1, borderBottomColor: $gray3 }}>
-          <Button
-            row
-            center
-            middle
-            py={10}
-            onPress={() => navigation.navigate("CreateImagePostScreen")}
-            style={{ width: windowWidth / 2, borderRightWidth: 1, borderRightColor: $gray3 }}
-          >
-            <IoIcon name="image" size={20} color={$primary2} />
-            <Text>{t("IMAGE")}</Text>
-          </Button>
-          <Button
-            row
-            center
-            middle
-            py={10}
-            style={{ width: windowWidth / 2 }}
-            onPress={() => navigation.navigate("CreatePostScreen")}
-          >
-            <IoIcon name="document-text" size={20} color={$primary2} />
-            <Text>{t("STATUS")}</Text>
-          </Button>
-        </Block>
-        <Stories />
-        <Block>
-          {postList?.map((item: any, index: number) => (
-            <PostItem key={index} post={item} />
-          ))}
-        </Block>
-        {/* <Block center middle>
-          <Button pa={20} onPress={() => setOpen(true)} style={{ backgroundColor: "blue" }}>
-            <Text>Calender</Text>
-          </Button>
-        </Block> */}
+        <RefreshControl>
+          <Block row style={{ borderBottomWidth: 1, borderBottomColor: $gray3 }}>
+            <Button
+              row
+              center
+              middle
+              py={10}
+              onPress={() => navigation.navigate("CreateImagePostScreen")}
+              style={{ width: windowWidth / 2, borderRightWidth: 1, borderRightColor: $gray3 }}
+            >
+              <IoIcon name="image" size={20} color={$primary2} />
+              <Text>{t("IMAGE")}</Text>
+            </Button>
+            <Button
+              row
+              center
+              middle
+              py={10}
+              style={{ width: windowWidth / 2 }}
+              onPress={() => navigation.navigate("CreatePostScreen")}
+            >
+              <IoIcon name="document-text" size={20} color={$primary2} />
+              <Text>{t("STATUS")}</Text>
+            </Button>
+          </Block>
+          <Stories />
+          <Block pb={100}>
+            {postList?.map((item: any, index: number) => (
+              <PostItem key={index} post={item} />
+            ))}
+          </Block>
+        </RefreshControl>
       </ScrollView>
-      {/* <DatePicker open={open} setOpen={setOpen} date={date} setDate={setDate} /> */}
-      {/* <PostItem />
-      <PostItem />
-      <PostItem /> */}
     </Block>
   );
 }

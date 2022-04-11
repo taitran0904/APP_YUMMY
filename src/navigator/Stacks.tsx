@@ -13,6 +13,7 @@ import EditProfileScreen from "../screens/profile/edit-profile";
 import SearchScreen from "../screens/search";
 import SettingScreen from "../screens/setting";
 import ChooseLangScreen from "../screens/setting/choose-lang";
+import NotifyScreen from "../screens/notify";
 
 const screenOptions = {
   headerShown: false,
@@ -64,5 +65,14 @@ export function SearchStackScreen() {
     <SearchStack.Navigator initialRouteName="SearchScreenStack" screenOptions={screenOptions}>
       <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
     </SearchStack.Navigator>
+  );
+}
+
+const NotificationStack = createNativeStackNavigator();
+export function NotificationStackScreen() {
+  return (
+    <NotificationStack.Navigator initialRouteName="NotificationStackScreen" screenOptions={screenOptions}>
+      <NotificationStack.Screen name="NotifyScreen" component={NotifyScreen} />
+    </NotificationStack.Navigator>
   );
 }

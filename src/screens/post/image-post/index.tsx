@@ -36,7 +36,7 @@ const CreateImagePostScreen: React.FC = () => {
 
   const [post, setPost] = useState<any>({
     public: 0,
-    status: "none",
+    status: "normal",
     body: "",
     photos: [],
     photoFiles: [],
@@ -101,6 +101,11 @@ const CreateImagePostScreen: React.FC = () => {
       ),
     },
   ];
+
+  const checkEmpty = () => {
+    if (post.body !== "" || post.photos.length > 0) return false;
+    return true;
+  };
 
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
@@ -172,13 +177,16 @@ const CreateImagePostScreen: React.FC = () => {
         right={
           <Block style={{ alignItems: "flex-end", width: "100%" }}>
             <Button
+              disabled={checkEmpty()}
               mr={15}
               py={5}
               px={20}
               radius={5}
               onPress={() => {
-                dispatch(createPost(post));
-                navigation.goBack();
+                if (checkEmpty() === false) {
+                  dispatch(createPost(post));
+                  navigation.goBack();
+                } else null;
               }}
               style={{ backgroundColor: $primary }}
             >

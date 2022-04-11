@@ -1,5 +1,7 @@
+import React, { useEffect, useState } from "react";
 import { StyleSheet } from "react-native";
-import React from "react";
+import { SliderBox } from "react-native-image-slider-box";
+
 import { AntIcon, Block, FEIcon, IoIcon, Text } from "../../../helper";
 import { $gray, $gray3, $primary, $primary2 } from "../../../helper/theme";
 import Interactive from "../../interactive";
@@ -13,6 +15,15 @@ type Props = {
 };
 export const PostItem: React.FC<Props> = ({ post }) => {
   const { t } = useTranslation();
+  const [photoList, setPhotoList] = useState<any>([]);
+
+  useEffect(() => {
+    const photos: any = [];
+    post.photos.forEach((photo: any) => {
+      photos.push(`${IMAGE_BASE_URL}/user/posts/${photo}`);
+    });
+    setPhotoList(photos);
+  }, [post]);
 
   const publicArray = [
     {
@@ -97,14 +108,16 @@ export const PostItem: React.FC<Props> = ({ post }) => {
                 {dayjs(post.createAt).format("DD-MM-YYYY")}
               </Text>
               {publicArray.find(item => post?.public === item.id)?.icon}
-              {post?.status !== "none" && (
-                <Text ml={10}>
-                  {t("FEELING")}
-                  {": "}
-                  {statusArray.find(item => post?.status.toUpperCase() === item.lable.toUpperCase())?.lable}
-                </Text>
+              {post?.status !== "normal" && (
+                <>
+                  <Text ml={10}>
+                    {t("FEELING")}
+                    {": "}
+                    {statusArray.find(item => post?.status.toUpperCase() === item.lable.toUpperCase())?.lable}
+                  </Text>
+                  {statusArray.find(item => post?.status.toUpperCase() === item.lable.toUpperCase())?.icon}
+                </>
               )}
-              {statusArray.find(item => post?.status.toUpperCase() === item.lable.toUpperCase())?.icon}
             </Block>
           </Block>
         </Block>
@@ -114,11 +127,18 @@ export const PostItem: React.FC<Props> = ({ post }) => {
   return (
     <Block>
       {_renderInfor()}
-      <Block style={{ width: "100%", height: 320, backgroundColor: "blue" }} />
-
-      <Text size={14} color="black" numberOfLines={3}>
-        {post?.body}
-      </Text>
+      <SliderBox
+        images={photoList}
+        sliderBoxHeight={400}
+        dotColor={$primary}
+        autoplay={true}
+        imageLoadingColor={$primary}
+      />
+      {post?.body ? (
+        <Text pa={10} size={14} color="black" numberOfLines={3}>
+          {post?.body}
+        </Text>
+      ) : null}
       <Interactive />
     </Block>
   );

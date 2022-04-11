@@ -1,7 +1,13 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
-import { AuthScreenStack, HomeStackScreen, SearchStackScreen, SettingStackScreeen } from "./Stacks";
+import {
+  AuthScreenStack,
+  HomeStackScreen,
+  NotificationStackScreen,
+  SearchStackScreen,
+  SettingStackScreeen,
+} from "./Stacks";
 import { FEIcon } from "../helper";
 import { $primary } from "../helper/theme";
 
@@ -44,15 +50,15 @@ export default function Navigator({ auth }: Props) {
           name="SearchStackScreen"
           component={SearchStackScreen}
         />
-        {/* <BottomTab.Screen
+        <BottomTab.Screen
           options={{
             headerShown: false,
-            tabBarLabel: 'Notification',
+            tabBarLabel: "Notification",
             tabBarIcon: ({ color, size }) => <FEIcon name="bell" size={size} color={color} />,
           }}
-          name="SearchStackScreen"
-          component={SearchStackScreen}
-        /> */}
+          name="NotificationStackScreen"
+          component={NotificationStackScreen}
+        />
         <BottomTab.Screen
           options={{
             headerShown: false,

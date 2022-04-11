@@ -1,6 +1,6 @@
 export type CreatePostProps = {
   public: 0 | 1 | 2;
-  status: "none" | "happy" | "sad" | "love" | "angry" | "wow";
+  status: "normal" | "happy" | "sad" | "love" | "angry" | "wow";
   body: string;
   photos?: string[];
   photoFiles: any[];
