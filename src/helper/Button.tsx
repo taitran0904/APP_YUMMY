@@ -37,6 +37,7 @@ interface Props {
   isThirdSide?: boolean;
   disabled?: boolean;
   onPress?: () => void;
+  onLongPress?: () => void;
   opacity?: number;
   props?: any;
   children?: any;

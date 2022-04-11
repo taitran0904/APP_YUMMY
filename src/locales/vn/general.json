@@ -45,5 +45,10 @@
   "ANGRY": "Giận",
   "SURPRISED": "Ngạc nhiên",
   "FEELING": "Đang cảm thấy",
-  "WHAT_ARE_YOU_THINKING": "Bạn đang nghĩ gì?"
+  "WHAT_ARE_YOU_THINKING": "Bạn đang nghĩ gì?",
+  "CHOOSE_FROM_LIBRARY": "Chọn từ thư viện",
+  "TAKE_A_PHOTO": "Chụp ảnh",
+  "DO_YOU_WANT_TO_DELETE_THIS_PICTURE": "Bạn có muốn xóa ảnh này?",
+  "DELETE": "Xóa",
+  "NOTIFICATION": "Thông báo"
 }

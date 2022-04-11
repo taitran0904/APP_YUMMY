@@ -54,9 +54,6 @@ const BottomSheet: React.FC<Props> = props => {
         setVisible(false);
         navigation.navigate("PreviewScreen", { showType });
       },
-      // onPress: () => {
-      //   choosePhotoFromLibrary();
-      // },
     },
     {
       title: t("CANCEL"),

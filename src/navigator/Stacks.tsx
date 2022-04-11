@@ -5,7 +5,7 @@ import PostDetailScreen from "../components/post/post-item-detail";
 import PreviewScreen from "../components/profile/information/preview";
 import AuthScreen, { LoginScreen, RegisterScreen } from "../screens/auth";
 import HomeScreen from "../screens/home";
-import CreatePostScreen from "../screens/post";
+import CreatePostScreen from "../screens/post/status-post";
 import CreateImagePostScreen from "../screens/post/image-post";
 import PostDetail from "../screens/post/post-detail";
 import ProfileScreen from "../screens/profile";
@@ -13,6 +13,7 @@ import EditProfileScreen from "../screens/profile/edit-profile";
 import SearchScreen from "../screens/search";
 import SettingScreen from "../screens/setting";
 import ChooseLangScreen from "../screens/setting/choose-lang";
+import NotifyScreen from "../screens/notify";
 
 const screenOptions = {
   headerShown: false,
@@ -64,5 +65,14 @@ export function SearchStackScreen() {
     <SearchStack.Navigator initialRouteName="SearchScreenStack" screenOptions={screenOptions}>
       <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
     </SearchStack.Navigator>
+  );
+}
+
+const NotificationStack = createNativeStackNavigator();
+export function NotificationStackScreen() {
+  return (
+    <NotificationStack.Navigator initialRouteName="NotificationStackScreen" screenOptions={screenOptions}>
+      <NotificationStack.Screen name="NotifyScreen" component={NotifyScreen} />
+    </NotificationStack.Navigator>
   );
 }
