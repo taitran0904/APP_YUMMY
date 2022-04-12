@@ -1,12 +1,16 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
 import { call, put, select, takeEvery, takeLatest } from "redux-saga/effects";
-import { createPostAPI, fetchPostAPI } from "../apis/post";
+import { commentOnPostAPI, createPostAPI, fetchPostAPI, fetchPostCommentAPI } from "../apis/post";
 import { RootState } from "../configureStore";
 import {
+  createCommentPost,
+  createCommentPostSuccess,
   createPost,
   createPostSuccess,
   fetchPost,
+  fetchPostComment,
+  fetchPostCommentSuccess,
   fetchPostSuccess,
   hideActionLoading,
 } from "../slice/PostSlice";
@@ -49,7 +53,40 @@ function* fetchPostSaga() {
   }
 }
 
+function* fetchPostCommentSaga(action: PayloadAction<any>) {
+  const token: string = yield select((state: RootState) => state.user.token);
+  console.log("mmmmmmmmmmmmmmmmmmmmmmm", action.payload);
+  try {
+    const res: AxiosResponse = yield call(fetchPostCommentAPI, token, action.payload);
+    const { data } = res;
+    if (data.success) {
+      yield put(fetchPostCommentSuccess(data.data));
+    }
+  } catch (error) {
+    //
+  } finally {
+    put(hideActionLoading());
+  }
+}
+
+function* commentPostSaga(action: PayloadAction<any>) {
+  const token: string = yield select((state: RootState) => state.user.token);
+  try {
+    const res: AxiosResponse = yield call(commentOnPostAPI, token, action.payload.params);
+    const { data } = res;
+    if (data.success) {
+      yield put(createCommentPostSuccess(data.data));
+    }
+  } catch (error) {
+    //
+  } finally {
+    put(hideActionLoading());
+  }
+}
+
 export default function* postWatcher() {
   yield takeLatest(createPost.type, createPostSaga);
+  yield takeLatest(createCommentPost.type, commentPostSaga);
   yield takeEvery(fetchPost.type, fetchPostSaga);
+  yield takeEvery(fetchPostComment.type, fetchPostCommentSaga);
 }

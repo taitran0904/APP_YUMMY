@@ -1,14 +1,26 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useCallback, useRef } from "react";
 import { AntIcon, Block, Button } from "../../helper";
+import { useAppDispatch } from "../../hooks";
+import { fetchPostComment } from "../../redux/slice/PostSlice";
 
-const Interactive: React.FC = () => {
+type Props = {
+  postId?: any;
+};
+
+const Interactive: React.FC<Props> = ({ postId }) => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
+
   const interactive = [
     {
       id: 1,
       icon: "message1",
-      onPress: () => navigation.navigate("CommentScreen"),
+      onPress: () => {
+        navigation.navigate("CommentScreen");
+        console.log("poacascastId", postId);
+        dispatch(fetchPostComment(postId));
+      },
     },
     {
       id: 2,
