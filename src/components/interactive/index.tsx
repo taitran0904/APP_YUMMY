@@ -18,7 +18,6 @@ const Interactive: React.FC<Props> = ({ postId }) => {
       icon: "message1",
       onPress: () => {
         navigation.navigate("CommentScreen");
-        console.log("poacascastId", postId);
         dispatch(fetchPostComment(postId));
       },
     },

@@ -1,16 +1,25 @@
-import { useNavigation } from "@react-navigation/native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import { ScrollView, StyleSheet } from "react-native";
 import { useTranslation } from "react-i18next";
-import { ScrollView, StyleSheet, TextInput } from "react-native";
+import { useAppDispatch, useSelector } from "../../../../hooks";
+
 import { Block, Button, FEIcon, Input, MaIcon, Text } from "../../../../helper";
 import Image from "../../../../helper/Image";
 import { $gray3, $primary } from "../../../../helper/theme";
 import Header from "../../../header";
 import CommentItem from "./comment-item";
+import { createCommentPost } from "../../../../redux/slice/PostSlice";
 
 export default function CommentScreen() {
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
   const navigation = useNavigation();
+
+  const commentList: any = useSelector((state: any) => state.post.postComment.data);
+  const postId: any = useSelector((state: any) => state.post.postComment.postId);
+
+  const [commentText, setCommentText] = React.useState("");
   return (
     <>
       <Header
@@ -26,24 +35,32 @@ export default function CommentScreen() {
         }
         style={{ height: 50 }}
       />
-      <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: 20 }}>
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-        <CommentItem />
-      </ScrollView>
+      {commentList?.length > 0 ? (
+        <ScrollView showsVerticalScrollIndicator={false} style={{ paddingTop: 20 }}>
+          {commentList.map((item: any, index: number) => (
+            <CommentItem key={index} body={item?.body} createdAt={item?.createdAt} user={item?.user} />
+          ))}
+        </ScrollView>
+      ) : (
+        <Block flex center middle>
+          <Image
+            pure
+            source={require("../../../../assets/images/comment_null.png")}
+            style={{ width: 300, height: 300 }}
+          />
+        </Block>
+      )}
+
       <Block row bt={{ width: 1, color: $gray3 }} style={{ height: 100, width: "100%" }}>
         <Input
+          value={commentText}
           multiline
           numberOfLines={4}
           editable
           maxLength={100}
           placeholder={t("WRITE_A_COMMENT")}
+          onChangeText={(text: string) => setCommentText(text)}
           style={{
-            // borderWidth: 1,
-            // borderColor: $gray3,
             borderRadius: 10,
             height: 100,
             width: "80%",
@@ -51,7 +68,12 @@ export default function CommentScreen() {
           }}
         />
         <Block center middle style={{ width: "20%" }}>
-          <Button>
+          <Button
+            onPress={() => {
+              dispatch(createCommentPost({ postId, body: commentText }));
+              setCommentText("");
+            }}
+          >
             <Image
               pure
               source={require("../../../../assets/images/send.png")}

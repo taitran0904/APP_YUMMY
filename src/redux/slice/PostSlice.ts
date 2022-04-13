@@ -36,19 +36,18 @@ const PostSlice = createSlice({
 
     fetchPostSuccess(state, action: PayloadAction<any>) {
       state.actionLoading = false;
-      // console.log("hunhunhun", state.posts.data);
       state.posts.data = action.payload;
       state.posts.isFetched = true;
     },
 
     fetchPostComment(state, action: PayloadAction<any>) {
       state.actionLoading = true;
+      state.postComment.postId = action.payload;
     },
 
     fetchPostCommentSuccess(state, action: PayloadAction<any>) {
       state.actionLoading = false;
-      console.log("list comment", action.payload);
-      // state.postComment.data = action.payload;
+      state.postComment.data = action.payload;
     },
 
     createCommentPost(state, action: PayloadAction<any>) {
@@ -56,9 +55,9 @@ const PostSlice = createSlice({
     },
 
     createCommentPostSuccess(state, action: PayloadAction<any>) {
+      const data = action.payload;
       state.actionLoading = false;
-      console.log("action........................................", action.payload);
-      // state.postComment.data.unshift(action.payload.data);
+      state.postComment.data.unshift(action.payload);
     },
 
     hideActionLoading(state) {

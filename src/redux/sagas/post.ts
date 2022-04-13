@@ -26,7 +26,6 @@ function* createPostSaga(action: PayloadAction<any>) {
     formData.append("body", body);
 
     const res: AxiosResponse = yield call(createPostAPI, token, formData);
-    console.log("res.data post", res.data);
     const { data } = res;
     if (data.success) {
       yield put(createPostSuccess(data));
@@ -55,7 +54,6 @@ function* fetchPostSaga() {
 
 function* fetchPostCommentSaga(action: PayloadAction<any>) {
   const token: string = yield select((state: RootState) => state.user.token);
-  console.log("mmmmmmmmmmmmmmmmmmmmmmm", action.payload);
   try {
     const res: AxiosResponse = yield call(fetchPostCommentAPI, token, action.payload);
     const { data } = res;
@@ -71,8 +69,10 @@ function* fetchPostCommentSaga(action: PayloadAction<any>) {
 
 function* commentPostSaga(action: PayloadAction<any>) {
   const token: string = yield select((state: RootState) => state.user.token);
+  console.log("tai dep trai", action.payload);
   try {
-    const res: AxiosResponse = yield call(commentOnPostAPI, token, action.payload.params);
+    const res: AxiosResponse = yield call(commentOnPostAPI, token, action.payload);
+    console.log("con di me m", res.data);
     const { data } = res;
     if (data.success) {
       yield put(createCommentPostSuccess(data.data));
