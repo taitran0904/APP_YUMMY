@@ -30,6 +30,8 @@ const Information: React.FC<Props> = props => {
   const { userInfo } = props;
   const { t } = useTranslation();
 
+  const user: any = useSelector(state => state.user.userInfo);
+
   const [viewImage, setViewImage] = useState<any>(null);
   const [viewImageModal, setViewImageModal] = useState(false);
   const [showType, setShowType] = useState<any>(null);
@@ -105,28 +107,34 @@ const Information: React.FC<Props> = props => {
             </Text>
             <Block row mb={5}>
               <AntIcon name="enviromento" size={20} color="black" style={{ marginRight: 5 }} />
-              <Text color="black">{userInfo?.from || ""}</Text>
+              <Text color="black">{userInfo.from ? userInfo.from : t("NOT_UPDATED")}</Text>
             </Block>
             <Block row mb={5}>
               <AntIcon name="gift" size={20} color="black" style={{ marginRight: 5 }} />
-              <Text color="black">{dayjs(userInfo?.birthday).format("DD-MM-YYYY") || ""}</Text>
+              <Text color="black">
+                {userInfo?.birthday !== null
+                  ? dayjs(userInfo.birthday).format("DD-MM-YYYY")
+                  : t("NOT_UPDATED")}
+              </Text>
             </Block>
             <Block row mb={5}>
               <MaIcon name="work-outline" size={20} color="black" style={{ marginRight: 5 }} />
-              <Text color="black">{userInfo?.occupation || ""}</Text>
+              <Text color="black">{userInfo.occupation ? userInfo.occupation : t("NOT_UPDATED")}</Text>
             </Block>
           </Block>
-          <Button
-            ma={20}
-            px={15}
-            py={5}
-            radius={5}
-            style={{ position: "absolute", right: 0, backgroundColor: $primary }}
-          >
-            <Text title size={14} color="white">
-              {t("FOLLOW")}
-            </Text>
-          </Button>
+          {userInfo?._id !== user?._id && (
+            <Button
+              ma={20}
+              px={15}
+              py={5}
+              radius={5}
+              style={{ position: "absolute", right: 0, backgroundColor: $primary }}
+            >
+              <Text title size={14} color="white">
+                {t("FOLLOW")}
+              </Text>
+            </Button>
+          )}
         </Block>
       </Block>
       <Modal

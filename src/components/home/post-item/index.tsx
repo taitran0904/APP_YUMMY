@@ -125,7 +125,7 @@ export const PostItem: React.FC<Props> = ({ post }) => {
     );
   };
   return (
-    <Block>
+    <Block bb={{ width: 10, color: $gray3 }}>
       {_renderInfor()}
       <SliderBox
         images={photoList}
@@ -139,7 +139,7 @@ export const PostItem: React.FC<Props> = ({ post }) => {
           {post?.body}
         </Text>
       ) : null}
-      <Interactive />
+      <Interactive post={post} />
     </Block>
   );
 };

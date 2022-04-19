@@ -18,10 +18,10 @@ interface Props {
   editable?: boolean;
   selectTextOnFocus?: boolean;
   numberOfLines?: number;
-  onChangeText: (e: string) => void;
+  onChangeText?: (e: string) => void;
   // onBlur?: (e?: any) => void;
   // onFocus?: (e?: any) => void;
-  // onSubmitEditing?: () => void;
+  onSubmitEditing?: () => void;
   prefix?: React.ComponentElement<PanRecognizer, any>;
   suffix?: React.ComponentElement<PanRecognizer, any>;
 }

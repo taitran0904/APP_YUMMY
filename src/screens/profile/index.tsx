@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Header from "../../components/header";
@@ -8,11 +8,13 @@ import TabView from "../../components/profile/tab-view";
 import { ScrollView, StyleSheet } from "react-native";
 import { useSelector } from "../../hooks";
 import { $gray2 } from "../../helper/theme";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
+  const route: any = useRoute();
   const navigation = useNavigation();
+  const infoOthers: any = route?.params?.user;
 
   const userInfo: any = useSelector(state => state.user.userInfo);
 
@@ -27,20 +29,25 @@ export default function ProfileScreen() {
               <MaIcon name="arrow-back" color="black" size={20} />
             </Button>
             <Block>
-              <Text color="black">John</Text>
-              {userInfo?.friends?.length > 0 && (
-                <Text>
-                  {userInfo?.friends.length} {t("FOLLOWERS")}
-                </Text>
-              )}
+              <Text color="black">{infoOthers?.name || userInfo?.name}</Text>
+              {infoOthers?.friends?.length > 0 ||
+                (userInfo?.friends?.length > 0 && (
+                  <Text>
+                    {infoOthers?.friends?.length || userInfo?.friends.length} {t("FOLLOWERS")}
+                  </Text>
+                ))}
             </Block>
           </Block>
         }
         right={
           <Block style={{ alignItems: "flex-end", width: "100%" }}>
-            <Button px={10} onPress={() => setOpenPopup(!openPopup)}>
-              <MDIcon name="dots-vertical" size={24} color="black" />
-            </Button>
+            {userInfo?._id !== infoOthers?._id ? (
+              <Block />
+            ) : (
+              <Button px={10} onPress={() => setOpenPopup(!openPopup)}>
+                <MDIcon name="dots-vertical" size={24} color="black" />
+              </Button>
+            )}
           </Block>
         }
         centerStyle={{
@@ -49,8 +56,8 @@ export default function ProfileScreen() {
         style={{ height: 50 }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Information userInfo={userInfo} />
-        <TabView />
+        <Information userInfo={infoOthers || userInfo} />
+        <TabView user={infoOthers || userInfo} />
       </ScrollView>
       {openPopup ? (
         <Block style={styles.popup}>

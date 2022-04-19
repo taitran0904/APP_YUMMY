@@ -19,7 +19,6 @@ const Image: React.FC<Props> = props => {
     return <ImageBase {...props} source={source} />;
   }
 
-  console.log("checkEmpty", checkEmpty);
   return (
     <Block row center middle style={style}>
       {checkEmpty && checkEmpty !== "no-photo" ? (

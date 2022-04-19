@@ -1,7 +1,7 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import CommentScreen from "../components/home/post-item/comment-screen";
-import PostDetailScreen from "../components/post/post-item-detail";
+import PostDetailScreen from "../components/post/post-detail";
 import PreviewScreen from "../components/profile/information/preview";
 import AuthScreen, { LoginScreen, RegisterScreen } from "../screens/auth";
 import HomeScreen from "../screens/home";
@@ -64,6 +64,7 @@ export function SearchStackScreen() {
   return (
     <SearchStack.Navigator initialRouteName="SearchScreenStack" screenOptions={screenOptions}>
       <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
+      <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
     </SearchStack.Navigator>
   );
 }
