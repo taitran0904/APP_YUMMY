@@ -1,13 +1,21 @@
 import { PayloadAction } from "@reduxjs/toolkit";
 import { AxiosResponse } from "axios";
 import { call, put, select, takeEvery, takeLatest } from "redux-saga/effects";
-import { commentOnPostAPI, createPostAPI, fetchPostAPI, fetchPostCommentAPI } from "../apis/post";
+import {
+  commentOnPostAPI,
+  createPostAPI,
+  createReactionAPI,
+  fetchPostAPI,
+  fetchPostCommentAPI,
+} from "../apis/post";
 import { RootState } from "../configureStore";
 import {
   createCommentPost,
   createCommentPostSuccess,
   createPost,
   createPostSuccess,
+  createReaction,
+  createReactionSuccess,
   fetchPost,
   fetchPostComment,
   fetchPostCommentSuccess,
@@ -72,7 +80,6 @@ function* commentPostSaga(action: PayloadAction<any>) {
   console.log("tai dep trai", action.payload);
   try {
     const res: AxiosResponse = yield call(commentOnPostAPI, token, action.payload);
-    console.log("con di me m", res.data);
     const { data } = res;
     if (data.success) {
       yield put(createCommentPostSuccess(data.data));
@@ -84,9 +91,21 @@ function* commentPostSaga(action: PayloadAction<any>) {
   }
 }
 
+function* createReactionSaga(action: PayloadAction<any>) {
+  const token: string = yield select((state: RootState) => state.user.token);
+  const userInfo: any = yield select((state: any) => state.user.userInfo);
+  try {
+    yield put(createReactionSuccess({ data: action.payload, userInfo }));
+    yield call(createReactionAPI, token, action.payload);
+  } catch (error) {
+    //
+  }
+}
+
 export default function* postWatcher() {
   yield takeLatest(createPost.type, createPostSaga);
   yield takeLatest(createCommentPost.type, commentPostSaga);
+  yield takeLatest(createReaction.type, createReactionSaga);
   yield takeEvery(fetchPost.type, fetchPostSaga);
   yield takeEvery(fetchPostComment.type, fetchPostCommentSaga);
 }

@@ -55,9 +55,39 @@ const PostSlice = createSlice({
     },
 
     createCommentPostSuccess(state, action: PayloadAction<any>) {
-      const data = action.payload;
       state.actionLoading = false;
       state.postComment.data.unshift(action.payload);
+    },
+
+    createReaction(state, action: PayloadAction<any>) {
+      state.actionLoading = true;
+    },
+
+    createReactionSuccess(state, action: PayloadAction<any>) {
+      state.actionLoading = false;
+      const { data, userInfo } = action.payload;
+      const posts = state.posts.data;
+      const postIndex = posts.findIndex((post: any) => post._id === data.postId);
+      if (postIndex !== -1) {
+        const isReacted = posts[postIndex].reaction.findIndex(
+          (reaction: { user: { _id: string } }) => `${reaction.user._id}` === `${userInfo._id}`,
+        );
+        if (isReacted !== -1) {
+          if (posts[postIndex].reaction[isReacted].type !== data.type) {
+            posts[postIndex].reaction[isReacted].type = data.type;
+          } else {
+            posts[postIndex].reaction = posts[postIndex].reaction.filter(
+              (reaction: { user: { _id: string } }) => `${reaction.user._id}` !== `${userInfo._id}`,
+            );
+          }
+        } else {
+          posts[postIndex].reaction.unshift({
+            type: data.type,
+            user: { _id: userInfo._id, avatar: userInfo.avatar, name: userInfo.name },
+          });
+        }
+      }
+      state.posts.data = posts;
     },
 
     hideActionLoading(state) {
@@ -74,6 +104,8 @@ export const {
   hideActionLoading,
   fetchPostComment,
   fetchPostCommentSuccess,
+  createReaction,
+  createReactionSuccess,
   createCommentPost,
   createCommentPostSuccess,
 } = PostSlice.actions;

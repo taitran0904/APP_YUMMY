@@ -139,7 +139,7 @@ export const PostItem: React.FC<Props> = ({ post }) => {
           {post?.body}
         </Text>
       ) : null}
-      <Interactive postId={post?.id} />
+      <Interactive post={post} />
     </Block>
   );
 };

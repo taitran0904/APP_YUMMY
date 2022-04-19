@@ -35,3 +35,20 @@ export function commentOnPostAPI(token: string, params: any) {
     data: { body: params.body },
   });
 }
+
+export function fetchPostReactionAPI(token: string, postId: string) {
+  return request({
+    url: `${URL_POST}/${postId}/reactions`,
+    method: "get",
+    token,
+  });
+}
+
+export function createReactionAPI(token: string, data: any) {
+  return request({
+    url: `${URL_POST}/${data.postId}/react`,
+    method: "put",
+    data: { react_type: data.type },
+    token,
+  });
+}

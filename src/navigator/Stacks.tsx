@@ -64,6 +64,7 @@ export function SearchStackScreen() {
   return (
     <SearchStack.Navigator initialRouteName="SearchScreenStack" screenOptions={screenOptions}>
       <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
+      <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
     </SearchStack.Navigator>
   );
 }

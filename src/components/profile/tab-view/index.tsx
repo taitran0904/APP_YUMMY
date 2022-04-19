@@ -1,13 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { FlatList } from "react-native";
 import { Block, Button, Text } from "../../../helper";
 import { $gray, $gray2, $primary } from "../../../helper/theme";
+import { useSelector } from "../../../hooks";
 import useOrientation from "../../../hooks/useOrientation";
+import { PostItem } from "../../home/post-item";
+import UserItem from "../../search/user-item";
 
-const TabView: React.FC = () => {
+type Props = {
+  user?: any;
+};
+
+const TabView: React.FC<Props> = props => {
   const { t } = useTranslation();
   const { windowWidth } = useOrientation();
+
+  const { user } = props;
+
+  const postList = useSelector((state: any) => state.post.posts?.data);
+
   const [active, setActive] = useState(1);
+  const [data, setData] = useState([]);
+
   const tab = [
     {
       id: 1,
@@ -22,6 +37,17 @@ const TabView: React.FC = () => {
       title: t("FOLLOWING"),
     },
   ];
+
+  useEffect(() => {
+    if (active === 1) {
+      const data = postList.filter((item: any) => item.photos.length > 0 && item.user._id === user._id);
+      setData(data);
+    } else if (active === 2) {
+      const data = postList.filter((item: any) => item.photos.length === 0 && item.user._id === user?._id);
+      setData(data);
+    }
+  }, [active, postList]);
+
   return (
     <Block row wrap bb={{ width: 1, color: $gray2 }}>
       {tab.map((item: any) => {
@@ -57,6 +83,14 @@ const TabView: React.FC = () => {
           </Button>
         );
       })}
+      {data?.map((item: any, index: number) => (
+        <PostItem key={index} post={item} />
+      ))}
+      {/* <FlatList
+        data={postList}
+        renderItem={({ item, index }) => <PostItem post={item} />}
+        keyExtractor={(item: any) => item._id}
+      /> */}
     </Block>
   );
 };

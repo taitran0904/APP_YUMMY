@@ -5,7 +5,11 @@ import Image from "../../../helper/Image";
 import { useNavigation } from "@react-navigation/native";
 import { $primary } from "../../../helper/theme";
 
-const UserItem: React.FC = () => {
+type Props = {
+  user?: any;
+};
+
+const UserItem: React.FC<Props> = ({ user }) => {
   const navigation = useNavigation();
   return (
     // <Button
@@ -24,13 +28,21 @@ const UserItem: React.FC = () => {
     //     <Text>5 giờ trước</Text>
     //   </Block>
     // </Button>
-    <Button middle row py={7} px={15}>
+    <Button
+      middle
+      row
+      py={10}
+      px={15}
+      onPress={() => {
+        navigation.navigate("ProfileScreen", { user });
+      }}
+    >
       <Image style={{ height: 60, width: 60, borderRadius: 30, borderWidth: 1, borderColor: $primary }} />
       <Block mx={10}>
         <Text title size={16}>
-          Dong nhi
+          {user?.name}
         </Text>
-        <Text>64 bạn</Text>
+        {user.friends.length > 0 && <Text>{user.friends.length} bạn</Text>}
       </Block>
     </Button>
   );

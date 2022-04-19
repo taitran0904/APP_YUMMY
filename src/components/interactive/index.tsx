@@ -1,42 +1,51 @@
 import { useNavigation } from "@react-navigation/native";
-import React, { useCallback, useRef } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { AntIcon, Block, Button } from "../../helper";
-import { useAppDispatch } from "../../hooks";
-import { fetchPostComment } from "../../redux/slice/PostSlice";
+import { useAppDispatch, useSelector } from "../../hooks";
+import { createReaction, fetchPostComment } from "../../redux/slice/PostSlice";
 
 type Props = {
-  postId?: any;
+  post?: any;
 };
 
-const Interactive: React.FC<Props> = ({ postId }) => {
+const Interactive: React.FC<Props> = ({ post }) => {
   const dispatch = useAppDispatch();
   const navigation = useNavigation();
 
-  const interactive = [
-    {
-      id: 1,
-      icon: "message1",
-      onPress: () => {
-        navigation.navigate("CommentScreen");
-        dispatch(fetchPostComment(postId));
-      },
-    },
-    {
-      id: 2,
-      icon: "hearto",
-      active: "heart",
-      onPress: () => console.log("hihi"),
-    },
-  ];
+  const userInfo: any = useSelector(state => state.user.userInfo);
 
   return (
     <>
       <Block row>
-        {interactive.map((item: any) => (
-          <Button key={item.id} ml={20} my={10} onPress={item.onPress}>
-            <AntIcon name={item.icon} size={24} color="black" />
-          </Button>
-        ))}
+        <Button
+          ml={20}
+          my={10}
+          onPress={() => {
+            navigation.navigate("CommentScreen");
+            dispatch(fetchPostComment(post?.id));
+          }}
+        >
+          <AntIcon name="message1" size={24} color="black" />
+        </Button>
+        <Button
+          ml={20}
+          my={10}
+          onPress={() => {
+            dispatch(createReaction({ postId: post?.id, type: "love" }));
+          }}
+        >
+          {post?.reaction?.length > 0 ? (
+            post?.reaction.some((reactionVjp: any) => {
+              return reactionVjp.user._id === userInfo._id;
+            }) ? (
+              <AntIcon name="heart" size={24} color="red" />
+            ) : (
+              <AntIcon name="hearto" size={24} color="black" />
+            )
+          ) : (
+            <AntIcon name="hearto" size={24} color="black" />
+          )}
+        </Button>
       </Block>
     </>
   );
