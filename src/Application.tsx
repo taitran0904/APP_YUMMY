@@ -9,6 +9,7 @@ import { useAppDispatch, useSelector } from "./hooks";
 import LoginScreen from "./screens/auth/login";
 import { saveToken } from "./redux/slice/UserSlice";
 import { fetchPost } from "./redux/slice/PostSlice";
+import { getFriendRequest } from "./redux/slice/FriendSlice";
 
 export default function Application() {
   const { i18n } = useTranslation();
@@ -44,6 +45,7 @@ export default function Application() {
   useEffect(() => {
     if (token) {
       dispatch(fetchPost());
+      dispatch(getFriendRequest());
     }
   }, [token]);
 

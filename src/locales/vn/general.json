@@ -53,5 +53,8 @@
   "NOTIFICATION": "Thông báo",
   "WRITE_A_COMMENT": "Viết bình luận...",
   "FRIREND": "Bạn",
-  "NOT_UPDATED": "Chưa cập nhật"
+  "NOT_UPDATED": "Chưa cập nhật",
+  "ACCECPT": "Chấp nhận",
+  "DECLINE": "Từ chối",
+  "WAITING": "Đang chờ"
 }

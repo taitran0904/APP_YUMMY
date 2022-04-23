@@ -53,5 +53,8 @@
   "NOTIFICATION": "Notification",
   "WRITE_A_COMMENT": "Write a comment...",
   "FRIREND": "Friend",
-  "NOT_UPDATED": "Not updated"
+  "NOT_UPDATED": "Not updated",
+  "ACCECPT": "Accept",
+  "DECLINE": "Decline",
+  "WAITING": "Waiting"
 }

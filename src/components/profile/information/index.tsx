@@ -1,22 +1,20 @@
-import axios, { AxiosResponse } from "axios";
 import dayjs from "dayjs";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Modal, StyleSheet, Image as IM } from "react-native";
 import ImageViewer from "react-native-image-zoom-viewer";
-import { Modalize } from "react-native-modalize";
 import { IMAGE_BASE_URL } from "../../../constant";
-import { AntIcon, Block, Button, MaIcon, Text } from "../../../helper";
+import { AntIcon, Block, Button, Loading, MaIcon, Text } from "../../../helper";
 import Image from "../../../helper/Image";
-import { $primary } from "../../../helper/theme";
+import { $gray3, $primary } from "../../../helper/theme";
 import { useAppDispatch, useSelector } from "../../../hooks";
-import useOrientation from "../../../hooks/useOrientation";
-import { updateUserInfoAPI } from "../../../redux/apis/user";
-import { updateUserPhoto } from "../../../redux/slice/UserSlice";
+import { accecptFriendAPI, sendInvitationsAPI } from "../../../redux/apis/friend";
+import { getUserInfo } from "../../../redux/slice/UserSlice";
 import BottomSheet from "../bottom-sheet";
 
 type Props = {
   userInfo: {
+    _id?: string;
     avatar?: string;
     name?: string;
     from?: string;
@@ -24,19 +22,28 @@ type Props = {
     occupation?: string;
     description?: string;
     cover_photo?: string;
+    friends?: any;
   };
+  setFollow?: any;
+  isFollow?: any;
+  checkAccept?: any;
+  infoOthers?: any;
+  isFriend?: any;
 };
 const Information: React.FC<Props> = props => {
-  const { userInfo } = props;
   const { t } = useTranslation();
+  const dispatch = useAppDispatch();
+  const { userInfo, setFollow, isFollow, checkAccept, isFriend } = props;
 
   const user: any = useSelector(state => state.user.userInfo);
+  const token: any = useSelector(state => state.user.token);
 
   const [viewImage, setViewImage] = useState<any>(null);
   const [viewImageModal, setViewImageModal] = useState(false);
   const [showType, setShowType] = useState<any>(null);
   const [visible, setVisible] = useState<boolean>(false);
   const [newPicture, setNewPicture] = useState<any>({});
+  const [loading, setLoading] = useState<string>("");
 
   const checkTypeShow = (type: any) => {
     if (type === "avatar" || type === "banner") {
@@ -51,6 +58,28 @@ const Information: React.FC<Props> = props => {
     //   });
     // }
   };
+
+  const follow = useCallback(async () => {
+    try {
+      setLoading("follow");
+      await sendInvitationsAPI(token, userInfo._id);
+      setFollow(true);
+      setLoading("");
+    } catch (error) {
+      setLoading("");
+    }
+  }, []);
+
+  const accept = useCallback(async () => {
+    try {
+      setLoading("accept");
+      await accecptFriendAPI(token, checkAccept);
+      dispatch(getUserInfo(token));
+      setLoading("");
+    } catch (error) {
+      setLoading("");
+    }
+  }, [checkAccept]);
 
   return (
     <>
@@ -122,18 +151,56 @@ const Information: React.FC<Props> = props => {
               <Text color="black">{userInfo.occupation ? userInfo.occupation : t("NOT_UPDATED")}</Text>
             </Block>
           </Block>
-          {userInfo?._id !== user?._id && (
-            <Button
-              ma={20}
-              px={15}
-              py={5}
-              radius={5}
-              style={{ position: "absolute", right: 0, backgroundColor: $primary }}
-            >
-              <Text title size={14} color="white">
-                {t("FOLLOW")}
-              </Text>
-            </Button>
+          {userInfo?._id !== user?._id && checkAccept === "" && isFriend === false && (
+            <Block mr={10} mt={10} style={{ position: "absolute", right: 0 }}>
+              <Button
+                disabled={isFollow}
+                center
+                middle
+                radius={5}
+                onPress={follow}
+                style={{ backgroundColor: $primary, width: 60, height: 35 }}
+              >
+                {loading === "follow" ? (
+                  <Loading color="white" />
+                ) : isFollow === false ? (
+                  <Text title size={14} color="white">
+                    {t("FOLLOW")}
+                  </Text>
+                ) : (
+                  <Text title size={14} color="white">
+                    {t("WAITING")}
+                  </Text>
+                )}
+              </Button>
+            </Block>
+          )}
+          {userInfo?._id !== user?._id && checkAccept !== "" && isFriend === false && (
+            <Block row flex mr={10} mt={10} style={{ position: "absolute", right: 0 }}>
+              <Button py={5} px={10} mr={10} radius={5} style={{ backgroundColor: $gray3 }}>
+                <Text title size={14} color={$primary}>
+                  {t("DECLINE")}
+                </Text>
+              </Button>
+              <Button py={5} px={10} radius={5} onPress={accept} style={{ backgroundColor: $primary }}>
+                {loading === "accept" ? (
+                  <Loading color="white" />
+                ) : (
+                  <Text title size={14} color="white">
+                    {t("ACCECPT")}
+                  </Text>
+                )}
+              </Button>
+            </Block>
+          )}
+          {isFriend === true && (
+            <Block mr={10} mt={10} style={{ position: "absolute", right: 0 }}>
+              <Block center middle radius={5} style={{ backgroundColor: $primary, width: 80, height: 35 }}>
+                <Text title size={14} color="white">
+                  {t("FOLLOWING")}
+                </Text>
+              </Block>
+            </Block>
           )}
         </Block>
       </Block>
