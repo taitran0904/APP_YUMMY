@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import Header from "../../components/header";
@@ -7,18 +7,52 @@ import { Information } from "../../components/profile";
 import TabView from "../../components/profile/tab-view";
 import { ScrollView, StyleSheet } from "react-native";
 import { useSelector } from "../../hooks";
-import { $gray2 } from "../../helper/theme";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { AxiosResponse } from "axios";
+import { checkSendedInvitationAPI } from "../../redux/apis/friend";
 
 export default function ProfileScreen() {
   const { t } = useTranslation();
   const route: any = useRoute();
   const navigation = useNavigation();
   const infoOthers: any = route?.params?.user;
+  const isSearch: any = route?.params?.isSearch;
 
   const userInfo: any = useSelector(state => state.user.userInfo);
+  const token: any = useSelector(state => state.user.token);
+  const friendRequest: any = useSelector(state => state.friend.friendRequestList);
 
   const [openPopup, setOpenPopup] = useState<Boolean>(false);
+  const [isFollow, setFollow] = useState<boolean>(false);
+  const [checkAccept, setCheckAccept] = useState<string>("");
+  const [isFriend, setFriend] = useState<boolean>(false);
+
+  const checkIsSended = useCallback(async () => {
+    const res: AxiosResponse = await checkSendedInvitationAPI(token, infoOthers?._id);
+    const data = res.data;
+    if (data.data.length > 0) {
+      setFollow(true);
+    } else setFollow(false);
+  }, []);
+
+  useEffect(() => {
+    const found = friendRequest.find((item: any) => item?.sender?._id === infoOthers?._id);
+    console.log("found", found);
+    if (found !== undefined) {
+      setCheckAccept(found._id);
+    } else setCheckAccept("");
+  }, [infoOthers]);
+
+  useEffect(() => {
+    checkIsSended();
+  }, [infoOthers, checkIsSended]);
+
+  useEffect(() => {
+    const found = userInfo.friends.findIndex((item: any) => item._id === infoOthers?._id);
+    if (found !== -1) {
+      setFriend(true);
+    } else setFriend(false);
+  }, [userInfo, infoOthers]);
 
   return (
     <>
@@ -33,7 +67,7 @@ export default function ProfileScreen() {
               {infoOthers?.friends?.length > 0 ||
                 (userInfo?.friends?.length > 0 && (
                   <Text>
-                    {infoOthers?.friends?.length || userInfo?.friends.length} {t("FOLLOWERS")}
+                    {isSearch ? infoOthers?.friends?.length : userInfo?.friends.length} {t("FOLLOWERS")}
                   </Text>
                 ))}
             </Block>
@@ -56,7 +90,14 @@ export default function ProfileScreen() {
         style={{ height: 50 }}
       />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Information userInfo={infoOthers || userInfo} />
+        <Information
+          userInfo={infoOthers || userInfo}
+          setFollow={setFollow}
+          isFollow={isFollow}
+          checkAccept={checkAccept}
+          infoOthers={infoOthers}
+          isFriend={isFriend}
+        />
         <TabView user={infoOthers || userInfo} />
       </ScrollView>
       {openPopup ? (

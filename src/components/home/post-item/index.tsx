@@ -108,7 +108,7 @@ export const PostItem: React.FC<Props> = ({ post }) => {
                 {dayjs(post.createAt).format("DD-MM-YYYY")}
               </Text>
               {publicArray.find(item => post?.public === item.id)?.icon}
-              {post?.status !== "normal" && (
+              {post?.status !== "normal" && post?.status !== "none" && (
                 <>
                   <Text ml={10}>
                     {t("FEELING")}

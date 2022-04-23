@@ -7,9 +7,10 @@ import { $primary } from "../../../helper/theme";
 
 type Props = {
   user?: any;
+  setSearch?: any;
 };
 
-const UserItem: React.FC<Props> = ({ user }) => {
+const UserItem: React.FC<Props> = ({ user, setSearch }) => {
   const navigation = useNavigation();
   return (
     // <Button
@@ -34,7 +35,8 @@ const UserItem: React.FC<Props> = ({ user }) => {
       py={10}
       px={15}
       onPress={() => {
-        navigation.navigate("ProfileScreen", { user });
+        navigation.navigate("ProfileScreen", { user, isSearch: true });
+        setSearch("");
       }}
     >
       <Image style={{ height: 60, width: 60, borderRadius: 30, borderWidth: 1, borderColor: $primary }} />

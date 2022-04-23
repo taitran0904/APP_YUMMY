@@ -25,7 +25,10 @@ export default function SearchScreen() {
   const fetchDataSearch = useCallback(async () => {
     const res: AxiosResponse = await searchAPI(token, { q: search });
     setDataSearch(res.data.data);
-    setSearch("");
+  }, [search]);
+
+  useEffect(() => {
+    setDataSearch([]);
   }, [search]);
 
   return (
@@ -47,12 +50,14 @@ export default function SearchScreen() {
           centerStyle={{ marginHorizontal: 10 }}
           style={styles.header}
         />
-        <FlatList
-          data={dataSearch}
-          keyExtractor={(index: number) => index.toString()}
-          renderItem={({ item }) => <UserItem user={item} />}
-          showsVerticalScrollIndicator={false}
-        />
+        {search !== "" && (
+          <FlatList
+            data={dataSearch}
+            keyExtractor={(item: any) => `key${item._id}`}
+            renderItem={({ item }) => <UserItem user={item} setSearch={setSearch} />}
+            showsVerticalScrollIndicator={false}
+          />
+        )}
       </Block>
     </>
   );
