@@ -33,3 +33,11 @@ export function accecptFriendAPI(token: string, senderId: any) {
     token,
   });
 }
+
+export function declineFriendAPI(token: string, senderId: any) {
+  return request({
+    url: `${URL_FRIEND}/decline/${senderId}`,
+    method: "delete",
+    token,
+  });
+}

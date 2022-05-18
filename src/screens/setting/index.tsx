@@ -18,14 +18,14 @@ export default function SettingScreen() {
   const [modalVisible, setModalVisible] = useState(false);
   const setting = [
     {
+      title: t("MY_QR_CODE"),
+      icon: "qrcode",
+      onPress: () => navigation.navigate("QRCodeScreen"),
+    },
+    {
       title: t("LANGUAGE"),
       icon: "alpha-l-box-outline",
       onPress: () => setModalVisible(true),
-    },
-    {
-      title: t("PRIVACY"),
-      icon: "security",
-      onPress: () => console.log("hihi"),
     },
     {
       title: t("HELP_SUPPORT"),

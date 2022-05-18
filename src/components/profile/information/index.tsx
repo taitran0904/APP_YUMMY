@@ -8,7 +8,8 @@ import { AntIcon, Block, Button, Loading, MaIcon, Text } from "../../../helper";
 import Image from "../../../helper/Image";
 import { $gray3, $primary } from "../../../helper/theme";
 import { useAppDispatch, useSelector } from "../../../hooks";
-import { accecptFriendAPI, sendInvitationsAPI } from "../../../redux/apis/friend";
+import { accecptFriendAPI, declineFriendAPI, sendInvitationsAPI } from "../../../redux/apis/friend";
+import { getFriendRequest } from "../../../redux/slice/FriendSlice";
 import { getUserInfo } from "../../../redux/slice/UserSlice";
 import BottomSheet from "../bottom-sheet";
 
@@ -29,11 +30,12 @@ type Props = {
   checkAccept?: any;
   infoOthers?: any;
   isFriend?: any;
+  setCheckAccept?: any;
 };
 const Information: React.FC<Props> = props => {
   const { t } = useTranslation();
   const dispatch = useAppDispatch();
-  const { userInfo, setFollow, isFollow, checkAccept, isFriend } = props;
+  const { userInfo, setFollow, isFollow, checkAccept, isFriend, setCheckAccept } = props;
 
   const user: any = useSelector(state => state.user.userInfo);
   const token: any = useSelector(state => state.user.token);
@@ -75,6 +77,21 @@ const Information: React.FC<Props> = props => {
       setLoading("accept");
       await accecptFriendAPI(token, checkAccept);
       dispatch(getUserInfo(token));
+      dispatch(getFriendRequest());
+      setFollow(false);
+      setLoading("");
+    } catch (error) {
+      setLoading("");
+    }
+  }, [checkAccept]);
+
+  const decline = useCallback(async () => {
+    try {
+      setLoading("decline");
+      await declineFriendAPI(token, checkAccept);
+      dispatch(getUserInfo(token));
+      dispatch(getFriendRequest());
+      setCheckAccept("");
       setLoading("");
     } catch (error) {
       setLoading("");
@@ -177,7 +194,7 @@ const Information: React.FC<Props> = props => {
           )}
           {userInfo?._id !== user?._id && checkAccept !== "" && isFriend === false && (
             <Block row flex mr={10} mt={10} style={{ position: "absolute", right: 0 }}>
-              <Button py={5} px={10} mr={10} radius={5} style={{ backgroundColor: $gray3 }}>
+              <Button py={5} px={10} mr={10} radius={5} onPress={decline} style={{ backgroundColor: $gray3 }}>
                 <Text title size={14} color={$primary}>
                   {t("DECLINE")}
                 </Text>

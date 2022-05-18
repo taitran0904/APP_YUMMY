@@ -56,5 +56,11 @@
   "NOT_UPDATED": "Chưa cập nhật",
   "ACCECPT": "Chấp nhận",
   "DECLINE": "Từ chối",
-  "WAITING": "Đang chờ"
+  "WAITING": "Đang chờ",
+  "AGREE": "Tôi đồng ý với các điều khoản dịch vụ và chính sách bảo mật của Yummy",
+  "NEXT": "Tiếp theo",
+  "EMAIL_EXIST": "Email đã tồn tại hoặc đã được đăng ký",
+  "CREATE_ACC": "Tạo tài khoản",
+  "MY_QR_CODE": "Mã QR của tôi",
+  "MOVE_CAMERA": "Di chuyển camera đến mã QR để quét"
 }

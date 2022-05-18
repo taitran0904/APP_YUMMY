@@ -30,7 +30,7 @@ export default function LoginScreen() {
         center
         middle
         style={{
-          backgroundColor: $primary2,
+          backgroundColor: $primary,
           height: 150,
         }}
       >
@@ -72,10 +72,10 @@ export default function LoginScreen() {
           mx={25}
           mt={20}
           onPress={onSubmit}
-          style={{ height: 60, borderRadius: 15, backgroundColor: $primary2 }}
+          style={{ height: 60, borderRadius: 15, backgroundColor: $primary }}
         >
-          {loading && <Loading color={$primary} style={{ marginRight: 5 }} />}
-          <Text weight="bold" size={18} color={$black}>
+          {loading && <Loading color={$white} style={{ marginRight: 5 }} />}
+          <Text weight="bold" size={18} color={$white}>
             {t("LOGIN")}
           </Text>
         </Button>
@@ -83,14 +83,14 @@ export default function LoginScreen() {
           <Text color={$gray} size={16}>
             Already have an account?{" "}
           </Text>
-          <Button center middle onPress={() => navigation.navigate("RegisterScreen")}>
+          <Button center middle onPress={() => navigation.navigate("SendEmailScreen")}>
             <Text size={16} color="blue">
               Create an Account
             </Text>
           </Button>
         </Block>
         <Block mx={20} mt={20} style={{ height: 1, backgroundColor: $gray2 }} />
-        <Button
+        {/* <Button
           row
           center
           middle
@@ -102,7 +102,7 @@ export default function LoginScreen() {
           <Text weight="bold" ml={5} size={18} color={$black}>
             with Google
           </Text>
-        </Button>
+        </Button> */}
       </Block>
     </Block>
   );

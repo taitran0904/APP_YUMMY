@@ -1,9 +1,11 @@
+import { useNavigation } from "@react-navigation/native";
 import React, { useRef, useState } from "react";
 import { Animated } from "react-native";
 import { Block } from "../../helper";
 import Image from "../../helper/Image";
 
 export default function SplashScreen() {
+  const navigation = useNavigation();
   const LogoAnim = useRef(new Animated.Value(0)).current;
   // const [loadingSnipper, setLoadingSnipper] = useState(false)
   const LogoOut = () => {
@@ -18,9 +20,10 @@ export default function SplashScreen() {
     ]);
   };
 
-  // setTimeout(() => {
-  //   navigation.navigate('');
-  // }, 3000);
+  setTimeout(() => {
+    navigation.navigate("LoginScreen");
+  }, 5000);
+
   return (
     <Block
       flex

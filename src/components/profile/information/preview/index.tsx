@@ -189,7 +189,7 @@ export default PreviewScreen;
 const styles = StyleSheet.create({
   button: {
     backgroundColor: $primary,
-    width: 120,
+    width: 150,
     height: 50,
     borderRadius: 10,
   },

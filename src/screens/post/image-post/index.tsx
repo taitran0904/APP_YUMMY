@@ -54,16 +54,19 @@ const CreateImagePostScreen: React.FC = () => {
       id: 0,
       lable: t("PUBLIC"),
       icon: <IoIcon name="earth" size={30} color={$primary} />,
+      icon2: <IoIcon name="earth" size={20} color={$primary} />,
     },
     {
       id: 1,
       lable: t("FRIEND_ONLY"),
       icon: <FEIcon name="users" size={30} color={$primary} />,
+      icon2: <FEIcon name="users" size={20} color={$primary} />,
     },
     {
       id: 2,
       lable: t("ONLY_ME"),
       icon: <FEIcon name="lock" size={30} color={$primary} />,
+      icon2: <FEIcon name="lock" size={20} color={$primary} />,
     },
   ];
 
@@ -107,6 +110,23 @@ const CreateImagePostScreen: React.FC = () => {
     return true;
   };
 
+  const takePhotoWithCamera = () => {
+    ImagePicker.openCamera({
+      width: 400,
+      height: 400,
+      cropping: true,
+    }).then(image => {
+      const newPicture = {
+        uri: image.path,
+        name: `${new Date().toISOString()}.jpg`,
+        type: image.mime,
+      };
+      const photosClone = [...post.photos];
+      photosClone.push(newPicture);
+      setPost({ ...post, photos: photosClone });
+    });
+  };
+
   const choosePhotoFromLibrary = () => {
     ImagePicker.openPicker({
       width: 400,
@@ -129,6 +149,7 @@ const CreateImagePostScreen: React.FC = () => {
       <Block mx={1} row wrap>
         {post.photos.map((item: any, index: number) => (
           <Button
+            key={index}
             onLongPress={() => {
               setConfirm(true);
               setImageActive(index);
@@ -224,7 +245,9 @@ const CreateImagePostScreen: React.FC = () => {
               <Text size={14} color="black">
                 {t("PRIVACY")}:{" "}
               </Text>
-              <Text>{publicArray.find(item => item.id === post?.public)?.lable || t("PUBLIC")}</Text>
+              {publicArray.find(item => item.id === post?.public)?.icon2 || (
+                <IoIcon name="earth" size={20} color={$primary} />
+              )}
             </Button>
             <Button
               row
@@ -334,7 +357,15 @@ const CreateImagePostScreen: React.FC = () => {
               {t("CHOOSE_FROM_LIBRARY")}
             </Text>
           </Button>
-          <Button center middle style={{ height: 100, width: 140 }}>
+          <Button
+            center
+            middle
+            onPress={() => {
+              takePhotoWithCamera();
+              setChooseUpload(false);
+            }}
+            style={{ height: 100, width: 140 }}
+          >
             <FAIcon name="camera-retro" size={20} color={$primary} />
             <Text center>{t("TAKE_A_PHOTO")}</Text>
           </Button>

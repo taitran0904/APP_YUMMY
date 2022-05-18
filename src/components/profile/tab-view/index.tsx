@@ -22,6 +22,7 @@ const TabView: React.FC<Props> = props => {
 
   const [active, setActive] = useState(1);
   const [data, setData] = useState([]);
+  const [search, setSearch] = useState("");
 
   const tab = [
     {
@@ -40,13 +41,13 @@ const TabView: React.FC<Props> = props => {
 
   useEffect(() => {
     if (active === 1) {
-      const data = postList.filter((item: any) => item.photos.length > 0 && item.user._id === user._id);
+      const data = postList.filter((item: any) => item.photos?.length > 0 && item.user._id === user._id);
       setData(data);
     } else if (active === 2) {
-      const data = postList.filter((item: any) => item.photos.length === 0 && item.user._id === user?._id);
+      const data = postList.filter((item: any) => item.photos?.length === 0 && item.user._id === user?._id);
       setData(data);
-    }
-  }, [active, postList]);
+    } else setData(user.friends);
+  }, [active, postList, user]);
 
   return (
     <Block row wrap bb={{ width: 1, color: $gray2 }}>
@@ -83,14 +84,21 @@ const TabView: React.FC<Props> = props => {
           </Button>
         );
       })}
-      {data?.map((item: any, index: number) => (
-        <PostItem key={index} post={item} />
-      ))}
-      {/* <FlatList
-        data={postList}
-        renderItem={({ item, index }) => <PostItem post={item} />}
-        keyExtractor={(item: any) => item._id}
-      /> */}
+      {active !== 3 ? (
+        data.length > 0 ? (
+          data?.map((item: any, index: number) => <PostItem key={index} post={item} />)
+        ) : (
+          <Block />
+        )
+      ) : data.length > 0 ? (
+        <Block row wrap mx={10}>
+          {data?.map((item: any, index: number) => (
+            <UserItem key={index} user={item} setSearch={setSearch} />
+          ))}
+        </Block>
+      ) : (
+        <Block />
+      )}
     </Block>
   );
 };

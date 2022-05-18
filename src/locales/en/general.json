@@ -56,5 +56,11 @@
   "NOT_UPDATED": "Not updated",
   "ACCECPT": "Accept",
   "DECLINE": "Decline",
-  "WAITING": "Waiting"
+  "WAITING": "Waiting",
+  "AGREE": "I agree to Yummy's terms of service and privacy policy",
+  "NEXT": "Next",
+  "EMAIL_EXIST": "Email already exists or already registered",
+  "CREATE_ACC": "Create an Account",
+  "MY_QR_CODE": "My QR code",
+  "MOVE_CAMERA": "Move camera to QR code to scan"
 }
