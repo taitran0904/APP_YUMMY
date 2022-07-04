@@ -14,6 +14,11 @@ import SearchScreen from "../screens/search";
 import SettingScreen from "../screens/setting";
 import ChooseLangScreen from "../screens/setting/choose-lang";
 import NotifyScreen from "../screens/notify";
+import ActiveCodeScreen from "../screens/auth/register/active-code";
+import SendEmailScreen from "../screens/auth/register/send-email";
+import QRCodeScreen from "../screens/setting/qrcode";
+import QRCodeScannerScreen from "../screens/search/qrcode-scanner";
+import SplashScreen from "../screens/splash";
 
 const screenOptions = {
   headerShown: false,
@@ -25,9 +30,16 @@ const screenOptions = {
 const AuthStack = createNativeStackNavigator();
 export function AuthScreenStack() {
   return (
-    <AuthStack.Navigator initialRouteName="AuthStackScreen" screenOptions={screenOptions}>
+    <AuthStack.Navigator
+      initialRouteName="AuthStackScreen"
+      screenOptions={screenOptions}
+      // defaultScreenOptions="SplashScreen"
+    >
+      <AuthStack.Screen name="SplashScreen" component={SplashScreen} />
       <AuthStack.Screen name="LoginScreen" component={LoginScreen} />
       <AuthStack.Screen name="RegisterScreen" component={RegisterScreen} />
+      <AuthStack.Screen name="ActiveCodeScreen" component={ActiveCodeScreen} />
+      <AuthStack.Screen name="SendEmailScreen" component={SendEmailScreen} />
     </AuthStack.Navigator>
   );
 }
@@ -55,6 +67,7 @@ export function SettingStackScreeen() {
     <SettingStack.Navigator initialRouteName="SettingScreenStack" screenOptions={screenOptions}>
       <SettingStack.Screen name="SettingScreen" component={SettingScreen} />
       <SettingStack.Screen name="ChooseLangScreen" component={ChooseLangScreen} />
+      <SettingStack.Screen name="QRCodeScreen" component={QRCodeScreen} />
     </SettingStack.Navigator>
   );
 }
@@ -65,6 +78,7 @@ export function SearchStackScreen() {
     <SearchStack.Navigator initialRouteName="SearchScreenStack" screenOptions={screenOptions}>
       <SearchStack.Screen name="SearchScreen" component={SearchScreen} />
       <HomeStack.Screen name="ProfileScreen" component={ProfileScreen} />
+      <HomeStack.Screen name="QRCodeScannerScreen" component={QRCodeScannerScreen} />
     </SearchStack.Navigator>
   );
 }

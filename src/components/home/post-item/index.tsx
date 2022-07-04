@@ -151,6 +151,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: "#f3f3f3",
     borderWidth: 2,
-    borderColor: $primary2,
+    borderColor: $primary,
   },
 });

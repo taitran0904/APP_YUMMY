@@ -27,6 +27,8 @@ export default function ProfileScreen() {
   const [checkAccept, setCheckAccept] = useState<string>("");
   const [isFriend, setFriend] = useState<boolean>(false);
 
+  console.log("infoOthers", infoOthers);
+
   const checkIsSended = useCallback(async () => {
     const res: AxiosResponse = await checkSendedInvitationAPI(token, infoOthers?._id);
     const data = res.data;
@@ -37,7 +39,6 @@ export default function ProfileScreen() {
 
   useEffect(() => {
     const found = friendRequest.find((item: any) => item?.sender?._id === infoOthers?._id);
-    console.log("found", found);
     if (found !== undefined) {
       setCheckAccept(found._id);
     } else setCheckAccept("");
@@ -48,7 +49,7 @@ export default function ProfileScreen() {
   }, [infoOthers, checkIsSended]);
 
   useEffect(() => {
-    const found = userInfo.friends.findIndex((item: any) => item._id === infoOthers?._id);
+    const found = userInfo?.friends?.findIndex((item: any) => item._id === infoOthers?._id);
     if (found !== -1) {
       setFriend(true);
     } else setFriend(false);
@@ -75,12 +76,12 @@ export default function ProfileScreen() {
         }
         right={
           <Block style={{ alignItems: "flex-end", width: "100%" }}>
-            {userInfo?._id !== infoOthers?._id ? (
-              <Block />
-            ) : (
+            {userInfo?._id && infoOthers?._id === undefined ? (
               <Button px={10} onPress={() => setOpenPopup(!openPopup)}>
                 <MDIcon name="dots-vertical" size={24} color="black" />
               </Button>
+            ) : (
+              <Block />
             )}
           </Block>
         }
@@ -97,6 +98,7 @@ export default function ProfileScreen() {
           checkAccept={checkAccept}
           infoOthers={infoOthers}
           isFriend={isFriend}
+          setCheckAccept={setCheckAccept}
         />
         <TabView user={infoOthers || userInfo} />
       </ScrollView>
