@@ -19,6 +19,7 @@ export default function SearchScreen() {
   const navigation = useNavigation();
   const { windowHeight, windowWidth } = useOrientation();
 
+  console.log("test");
   const token: any = useSelector(state => state.user.token);
 
   const [search, setSearch] = useState<string>("");
